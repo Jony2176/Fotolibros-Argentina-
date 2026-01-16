@@ -40,33 +40,38 @@ const OrderStatusPage: React.FC<OrderStatusPageProps> = ({ onBack }) => {
     <div className="bg-cream min-h-screen flex flex-col">
       <header className="bg-white border-b px-4 py-6 shadow-sm">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <button onClick={onBack} className="text-gray-400 hover:text-primary">← Volver</button>
-          <div className="font-display font-bold text-primary">CONSULTAR ESTADO</div>
+          <button onClick={onBack} className="text-gray-400 hover:text-primary transition-colors">← Volver</button>
+          <div className="font-display font-bold text-primary tracking-widest uppercase">Consultar Estado</div>
           <div className="w-10"></div>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto w-full p-4 py-12 flex-grow">
         {!order ? (
-          <div className="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-            <h2 className="text-2xl font-display font-bold text-primary mb-6 text-center">Seguimiento de Pedido</h2>
-            <div className="space-y-4">
-              <div className="space-y-1">
-                <label className="text-sm font-bold text-gray-500">Número de Pedido</label>
+          <div className="max-w-md mx-auto bg-white p-10 rounded-3xl shadow-xl border border-gray-100">
+            <div className="text-center mb-8">
+               <span className="text-4xl mb-4 block">📦</span>
+               <h2 className="text-2xl font-display font-bold text-primary">Seguimiento de Pedido</h2>
+               <p className="text-sm text-gray-500 mt-2">Ingresá los datos para localizar tu fotolibro.</p>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Número de Pedido</label>
                 <input 
                   type="text" 
                   placeholder="Ej: FL-12345" 
-                  className="w-full p-4 bg-cream border-none rounded-2xl focus:ring-2 ring-primary/20 outline-none"
+                  className="w-full p-4 bg-white border border-gray-200 text-primary font-medium rounded-2xl focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all placeholder:text-gray-300"
                   value={orderId}
                   onChange={(e) => setOrderId(e.target.value)}
                 />
               </div>
-              <div className="space-y-1">
-                <label className="text-sm font-bold text-gray-500">Email de compra</label>
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Email de compra</label>
                 <input 
                   type="email" 
-                  placeholder="juan@ejemplo.com" 
-                  className="w-full p-4 bg-cream border-none rounded-2xl focus:ring-2 ring-primary/20 outline-none"
+                  placeholder="tu@email.com" 
+                  className="w-full p-4 bg-white border border-gray-200 text-primary font-medium rounded-2xl focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all placeholder:text-gray-300"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -74,45 +79,45 @@ const OrderStatusPage: React.FC<OrderStatusPageProps> = ({ onBack }) => {
               <button 
                 onClick={handleSearch}
                 disabled={loading}
-                className="w-full py-4 bg-primary text-white font-bold rounded-2xl shadow-lg hover:bg-opacity-95 disabled:opacity-50 mt-4 transition-all"
+                className="w-full py-5 bg-primary text-white font-bold rounded-2xl shadow-lg hover:bg-opacity-95 disabled:opacity-50 mt-4 transition-all active:scale-[0.98]"
               >
-                {loading ? 'Buscando...' : 'Consultar →'}
+                {loading ? 'Buscando historia...' : 'Consultar Pedido →'}
               </button>
             </div>
-            <p className="mt-8 text-center text-xs text-gray-400 leading-relaxed">
+            <p className="mt-10 text-center text-xs text-gray-400 leading-relaxed italic">
               ¿No encontrás tu número de pedido?<br/>Revisá tu casilla de SPAM o contactanos por <a href="#" className="text-primary font-bold underline">WhatsApp</a>.
             </p>
           </div>
         ) : (
-          <div className="space-y-8 animate-fade-in">
-            <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div className="space-y-8 animate-fade-in max-w-2xl mx-auto">
+            <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
               <div>
                 <div className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Pedido #{order.id}</div>
-                <h2 className="text-2xl font-bold text-primary">{order.producto}</h2>
+                <h2 className="text-2xl font-display font-bold text-primary">{order.producto}</h2>
                 <div className="text-sm text-gray-500 mt-1">Enviando a {order.ciudad} • {order.paginas} páginas</div>
               </div>
-              <div className={`px-4 py-2 rounded-full font-bold text-sm ${STATUS_CONFIG[order.estado].color}`}>
+              <div className={`px-5 py-2 rounded-full font-bold text-xs uppercase tracking-widest ${STATUS_CONFIG[order.estado].color}`}>
                 {STATUS_CONFIG[order.estado].label}
               </div>
             </div>
 
-            <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-              <h3 className="font-bold text-primary mb-8">Línea de tiempo</h3>
-              <div className="space-y-8 relative">
+            <div className="bg-white p-10 rounded-3xl shadow-lg border border-gray-100">
+              <h3 className="font-display font-bold text-primary mb-10 text-lg border-b pb-4">Línea de tiempo de producción</h3>
+              <div className="space-y-10 relative">
                 <div className="absolute left-[15px] top-2 bottom-2 w-0.5 bg-gray-100"></div>
                 {order.history.map((step: any, idx: number) => (
                   <div key={idx} className="flex gap-6 relative">
                     <div className={`w-8 h-8 rounded-full z-10 flex items-center justify-center transition-all ${
-                      step.done ? 'bg-success text-white' : step.current ? 'bg-primary ring-4 ring-primary/20' : 'bg-gray-100'
+                      step.done ? 'bg-success text-white' : step.current ? 'bg-primary ring-4 ring-primary/20 scale-110 shadow-lg' : 'bg-gray-100'
                     }`}>
                       {step.done ? '✓' : ''}
                     </div>
                     <div className="flex-grow pt-1">
-                      <div className={`font-bold ${step.done || step.current ? 'text-primary' : 'text-gray-300'}`}>
+                      <div className={`font-bold tracking-tight ${step.done || step.current ? 'text-primary' : 'text-gray-300'}`}>
                         {STATUS_CONFIG[step.status as OrderStatus].label}
                       </div>
                       <div className="text-xs text-gray-400 mt-0.5">
-                        {step.date || 'Pendiente'}
+                        {step.date || 'Próximamente'}
                       </div>
                     </div>
                   </div>
@@ -123,7 +128,7 @@ const OrderStatusPage: React.FC<OrderStatusPageProps> = ({ onBack }) => {
             <div className="text-center">
               <button 
                 onClick={() => setOrder(null)}
-                className="text-sm font-bold text-gray-400 hover:text-primary transition-colors"
+                className="text-xs font-bold text-gray-400 hover:text-primary transition-all uppercase tracking-widest"
               >
                 Realizar otra búsqueda
               </button>

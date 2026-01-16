@@ -2,14 +2,21 @@
 export interface Product {
   codigo: string;
   nombre: string;
+  tamanio: string;           // "21 × 21 cm"
   paginasBase: number;
-  precioBase: number;
+  paginasMax: number;
+  precioBase: number;        // Precio de venta
   precioPaginaExtra: number;
-  tipo: 'Cuadrado' | 'Horizontal' | 'Vertical' | 'Mini';
+  tipo: 'Cuadrado' | 'Apaisado' | 'Vertical' | 'Mini';
+  tapa: 'Blanda' | 'Dura' | 'Simil Cuero';
+  descripcion: string;
   imagen: string;
+  badge?: string;
+  destacado?: boolean;
 }
 
 export interface Package {
+  id: string;
   nombre: string;
   productoCodigo: string;
   paginas: number;
