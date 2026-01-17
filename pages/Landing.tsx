@@ -51,7 +51,7 @@ const Landing: React.FC<LandingProps> = ({ onStart, onCheckStatus, onAdmin }) =>
           </div>
           <div className="mt-8 flex items-center justify-center gap-2 text-white/90 text-sm bg-white/10 backdrop-blur-md rounded-full py-2 px-4 w-fit mx-auto">
             <span>⏱️</span>
-            Entrega en 12-18 días hábiles a todo el país
+            Entrega en 10-14 días hábiles a todo el país
           </div>
         </div>
       </section>
@@ -67,7 +67,7 @@ const Landing: React.FC<LandingProps> = ({ onStart, onCheckStatus, onAdmin }) =>
             {[
               { icon: '📸', title: 'Elegí tu fotolibro', text: 'Seleccioná el tamaño, tipo de tapa y la cantidad de páginas.' },
               { icon: '🖼️', title: 'Subí tus fotos', text: 'Arrastrá tus mejores momentos. Nosotros los organizamos por vos.' },
-              { icon: '📬', title: 'Recibí en tu casa', text: 'Te lo enviamos listo para disfrutar en 12-18 días hábiles.' },
+              { icon: '📬', title: 'Recibí en tu casa', text: 'Te lo enviamos listo para disfrutar en 10-14 días hábiles.' },
             ].map((step, idx) => (
               <div key={idx} className="text-center group">
                 <div className="w-20 h-20 bg-white shadow-lg rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 group-hover:-translate-y-2 transition-transform duration-300">

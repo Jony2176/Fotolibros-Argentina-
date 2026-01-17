@@ -5,6 +5,7 @@ import OrderWizard from './pages/OrderWizard';
 import OrderStatusPage from './pages/OrderStatusPage';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import AIChat from './components/AIChat';
 
 enum Page {
   LANDING = 'landing',
@@ -54,6 +55,9 @@ const App: React.FC = () => {
       {currentPage === Page.STATUS && <OrderStatusPage onBack={() => navigate(Page.LANDING)} />}
       {currentPage === Page.ADMIN_LOGIN && <AdminLogin onSuccess={() => navigate(Page.ADMIN_DASHBOARD)} onBack={() => navigate(Page.LANDING)} />}
       {currentPage === Page.ADMIN_DASHBOARD && <AdminDashboard onLogout={() => navigate(Page.ADMIN_LOGIN)} />}
+      
+      {/* Floating Global Chatbot */}
+      <AIChat />
     </div>
   );
 };

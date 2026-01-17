@@ -46,6 +46,16 @@ export interface OrderDetails {
   comprobante?: File;
   estado: OrderStatus;
   total: number;
+  aiVerification?: {
+    monto: number;
+    fecha: string;
+    banco: string;
+    cbuDestino: string;
+    referencia: string;
+    confianza: number;
+    coincideMonto: boolean;
+    cbuCorrecto: boolean;
+  };
 }
 
 export enum OrderStatus {
