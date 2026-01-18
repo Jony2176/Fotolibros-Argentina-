@@ -12,28 +12,69 @@ const OrderStatusPage: React.FC<OrderStatusPageProps> = ({ onBack }) => {
   const [order, setOrder] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
+    if (!orderId.trim() || !email.trim()) {
+      alert('Por favor ingresá tanto el número de pedido como tu email.');
+      return;
+    }
+
     setLoading(true);
-    // Simulation
-    setTimeout(() => {
-      setOrder({
-        id: orderId || 'FL-12345',
-        producto: 'Fotolibro 21x21 Tapa Dura',
-        estado: OrderStatus.EN_PRODUCCION,
-        fecha: '2024-03-20',
-        ciudad: 'Córdoba Capital',
-        paginas: 44,
-        history: [
-          { status: OrderStatus.PENDIENTE_PAGO, date: '2024-03-20 10:30', done: true },
-          { status: OrderStatus.VERIFICANDO_PAGO, date: '2024-03-20 11:15', done: true },
-          { status: OrderStatus.PAGO_APROBADO, date: '2024-03-20 14:00', done: true },
-          { status: OrderStatus.EN_PRODUCCION, date: 'En proceso', done: false, current: true },
-          { status: OrderStatus.EN_DEPOSITO, date: null, done: false },
-          { status: OrderStatus.ENVIADO, date: null, done: false },
-        ]
+
+    try {
+      const response = await fetch('http://localhost:8000/tracking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, pedido_id: orderId })
       });
+
+      if (response.status === 404) {
+        alert('No encontramos un pedido con ese ID. Verificá que esté bien escrito.');
+        setLoading(false);
+        return;
+      }
+
+      if (response.status === 403) {
+        alert('El email no coincide con el pedido. Usá el mismo email con el que hiciste el pedido.');
+        setLoading(false);
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error('Error al buscar pedido');
+      }
+
+      const data = await response.json();
+
+      // Transformar timeline del backend al formato del frontend
+      const history = data.timeline.map((step: any) => ({
+        status: step.estado === 'completado' ? OrderStatus.ENVIADO :
+          step.estado === 'procesando' ? OrderStatus.VERIFICANDO_PAGO :
+            step.estado === 'creando_proyecto' ? OrderStatus.EN_PRODUCCION :
+              step.estado === 'pendiente' ? OrderStatus.PENDIENTE_PAGO :
+                OrderStatus.EN_PRODUCCION,
+        date: step.done ? 'Completado' : step.current ? 'En proceso' : null,
+        done: step.done,
+        current: step.current
+      }));
+
+      setOrder({
+        id: data.id,
+        producto: data.producto,
+        estado: data.estado === 'completado' ? OrderStatus.ENVIADO :
+          data.estado === 'procesando' ? OrderStatus.VERIFICANDO_PAGO :
+            OrderStatus.EN_PRODUCCION,
+        fecha: data.created_at.split('T')[0],
+        ciudad: 'Tu ciudad',
+        paginas: 22,
+        history
+      });
+
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Hubo un error al buscar tu pedido. Intentá nuevamente.');
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -50,17 +91,17 @@ const OrderStatusPage: React.FC<OrderStatusPageProps> = ({ onBack }) => {
         {!order ? (
           <div className="max-w-md mx-auto bg-white p-10 rounded-3xl shadow-xl border border-gray-100">
             <div className="text-center mb-8">
-               <span className="text-4xl mb-4 block">📦</span>
-               <h2 className="text-2xl font-display font-bold text-primary">Seguimiento de Pedido</h2>
-               <p className="text-sm text-gray-500 mt-2">Ingresá los datos para localizar tu fotolibro.</p>
+              <span className="text-4xl mb-4 block">📦</span>
+              <h2 className="text-2xl font-display font-bold text-primary">Seguimiento de Pedido</h2>
+              <p className="text-sm text-gray-500 mt-2">Ingresá los datos para localizar tu fotolibro.</p>
             </div>
-            
+
             <div className="space-y-6">
               <div className="space-y-2">
                 <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Número de Pedido</label>
-                <input 
-                  type="text" 
-                  placeholder="Ej: FL-12345" 
+                <input
+                  type="text"
+                  placeholder="Ej: FL-12345"
                   className="w-full p-4 bg-white border border-gray-200 text-primary font-medium rounded-2xl focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all placeholder:text-gray-300"
                   value={orderId}
                   onChange={(e) => setOrderId(e.target.value)}
@@ -68,15 +109,15 @@ const OrderStatusPage: React.FC<OrderStatusPageProps> = ({ onBack }) => {
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Email de compra</label>
-                <input 
-                  type="email" 
-                  placeholder="tu@email.com" 
+                <input
+                  type="email"
+                  placeholder="tu@email.com"
                   className="w-full p-4 bg-white border border-gray-200 text-primary font-medium rounded-2xl focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all placeholder:text-gray-300"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <button 
+              <button
                 onClick={handleSearch}
                 disabled={loading}
                 className="w-full py-5 bg-primary text-white font-bold rounded-2xl shadow-lg hover:bg-opacity-95 disabled:opacity-50 mt-4 transition-all active:scale-[0.98]"
@@ -85,7 +126,7 @@ const OrderStatusPage: React.FC<OrderStatusPageProps> = ({ onBack }) => {
               </button>
             </div>
             <p className="mt-10 text-center text-xs text-gray-400 leading-relaxed italic">
-              ¿No encontrás tu número de pedido?<br/>Revisá tu casilla de SPAM o contactanos por <a href="#" className="text-primary font-bold underline">WhatsApp</a>.
+              ¿No encontrás tu número de pedido?<br />Revisá tu casilla de SPAM o contactanos por <a href="#" className="text-primary font-bold underline">WhatsApp</a>.
             </p>
           </div>
         ) : (
@@ -107,9 +148,8 @@ const OrderStatusPage: React.FC<OrderStatusPageProps> = ({ onBack }) => {
                 <div className="absolute left-[15px] top-2 bottom-2 w-0.5 bg-gray-100"></div>
                 {order.history.map((step: any, idx: number) => (
                   <div key={idx} className="flex gap-6 relative">
-                    <div className={`w-8 h-8 rounded-full z-10 flex items-center justify-center transition-all ${
-                      step.done ? 'bg-success text-white' : step.current ? 'bg-primary ring-4 ring-primary/20 scale-110 shadow-lg' : 'bg-gray-100'
-                    }`}>
+                    <div className={`w-8 h-8 rounded-full z-10 flex items-center justify-center transition-all ${step.done ? 'bg-success text-white' : step.current ? 'bg-primary ring-4 ring-primary/20 scale-110 shadow-lg' : 'bg-gray-100'
+                      }`}>
                       {step.done ? '✓' : ''}
                     </div>
                     <div className="flex-grow pt-1">
@@ -126,7 +166,7 @@ const OrderStatusPage: React.FC<OrderStatusPageProps> = ({ onBack }) => {
             </div>
 
             <div className="text-center">
-              <button 
+              <button
                 onClick={() => setOrder(null)}
                 className="text-xs font-bold text-gray-400 hover:text-primary transition-all uppercase tracking-widest"
               >

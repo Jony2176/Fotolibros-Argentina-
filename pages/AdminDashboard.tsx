@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { OrderStatus, STATUS_CONFIG } from '../types';
 import { GoogleGenAI, Type } from "@google/genai";
 
@@ -12,23 +12,79 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   const [verifyingId, setVerifyingId] = useState<string | null>(null);
   const [analysisResult, setAnalysisResult] = useState<any>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [orders, setOrders] = useState<any[]>([]);
+  const [stats, setStats] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const stats = [
-    { label: 'Pendiente Pago', count: 12, color: 'bg-yellow-500', status: OrderStatus.PENDIENTE_PAGO },
-    { label: 'Verificando', count: 5, color: 'bg-blue-500', status: OrderStatus.VERIFICANDO_PAGO },
-    { label: 'Pago OK', count: 28, color: 'bg-green-500', status: OrderStatus.PAGO_APROBADO },
-    { label: 'Producción', count: 42, color: 'bg-orange-500', status: OrderStatus.EN_PRODUCCION },
-    { label: 'En Domicilio', count: 3, color: 'bg-purple-500', status: OrderStatus.EN_DEPOSITO, urgent: true },
-    { label: 'Enviados', count: 156, color: 'bg-indigo-500', status: OrderStatus.ENVIADO },
-  ];
+  // Cargar pedidos del backend
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/admin/pedidos');
+        const data = await response.json();
 
-  const mockOrders = [
-    { id: 'FL-98231', client: 'Juan Pérez', product: '21x21 Tapa Dura', total: 61000, status: OrderStatus.EN_PRODUCCION, date: 'Hoy, 10:30' },
-    { id: 'FL-98230', client: 'María López', product: '30x30 Tapa Dura', total: 95000, status: OrderStatus.VERIFICANDO_PAGO, date: 'Hoy, 09:15', receipt: 'https://picsum.photos/seed/receipt1/400/600' },
-    { id: 'FL-98229', client: 'Carlos Ruiz', product: 'Mini 10x10', total: 14300, status: OrderStatus.EN_DEPOSITO, date: 'Ayer' },
-    { id: 'FL-98228', client: 'Ana García', product: '21x21 Tapa Dura', total: 40800, status: OrderStatus.PENDIENTE_PAGO, date: 'Ayer' },
-    { id: 'FL-98227', client: 'Pedro Gómez', product: 'Horizontal Blanda', total: 26500, status: OrderStatus.ENVIADO, date: '15 Mar' },
-  ];
+        // Transformar pedidos
+        const transformed = data.pedidos.map((p: any) => ({
+          id: p.id.slice(0, 8).toUpperCase(),
+          fullId: p.id,
+          client: p.cliente?.nombre || 'Sin nombre',
+          email: p.cliente?.email || '',
+          product: p.producto_codigo,
+          total: p.total_precio || 0,
+          status: p.estado === 'pendiente' ? OrderStatus.PENDIENTE_PAGO :
+            p.estado === 'procesando' ? OrderStatus.VERIFICANDO_PAGO :
+              p.estado === 'creando_proyecto' ? OrderStatus.EN_PRODUCCION :
+                p.estado === 'completado' ? OrderStatus.ENVIADO :
+                  OrderStatus.EN_PRODUCCION,
+          date: new Date(p.created_at).toLocaleDateString('es-AR'),
+          rawStatus: p.estado
+        }));
+
+        setOrders(transformed);
+
+        // Stats
+        const s = data.stats || {};
+        setStats([
+          { label: 'Pendiente', count: s.pendiente || 0, color: 'bg-yellow-500', status: OrderStatus.PENDIENTE_PAGO },
+          { label: 'Procesando', count: s.procesando || 0, color: 'bg-blue-500', status: OrderStatus.VERIFICANDO_PAGO },
+          { label: 'En Producción', count: (s.creando_proyecto || 0) + (s.subiendo_fotos || 0), color: 'bg-orange-500', status: OrderStatus.EN_PRODUCCION },
+          { label: 'Completados', count: s.completado || 0, color: 'bg-green-500', status: OrderStatus.ENVIADO },
+          { label: 'Errores', count: s.error || 0, color: 'bg-red-500', status: OrderStatus.PENDIENTE_PAGO, urgent: (s.error || 0) > 0 },
+        ]);
+
+      } catch (error) {
+        console.error('Error loading orders:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  // Exportar CSV
+  const handleExport = () => {
+    window.open('http://localhost:8000/admin/export', '_blank');
+  };
+
+  // Cambiar estado de pedido
+  const handleChangeStatus = async (orderId: string, fullId: string, newStatus: string) => {
+    const tracking = newStatus === 'completado' ? prompt('Código de seguimiento (opcional):') : null;
+
+    try {
+      const response = await fetch(`http://localhost:8000/admin/pedidos/${fullId}/estado?nuevo_estado=${newStatus}${tracking ? `&codigo_seguimiento=${tracking}` : ''}`, {
+        method: 'PATCH'
+      });
+
+      if (response.ok) {
+        alert(`Estado actualizado a: ${newStatus}`);
+        // Recargar
+        window.location.reload();
+      }
+    } catch (error) {
+      alert('Error actualizando estado');
+    }
+  };
 
   const MY_BANK_DATA = {
     cbu: "0720000088000012345678",
@@ -38,7 +94,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   const handleVerifyAI = async (order: any) => {
     setIsAnalyzing(true);
     setVerifyingId(order.id);
-    
+
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       // In a real app, we'd convert the URL to base64. Here we simulate multimodal input with a placeholder description as it's a mock URL.
@@ -105,8 +161,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
         {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {stats.map((stat) => (
-            <div 
-              key={stat.label} 
+            <div
+              key={stat.label}
               className={`bg-white p-4 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden cursor-pointer hover:-translate-y-1 transition-all ${stat.urgent ? 'ring-2 ring-error/50' : ''}`}
             >
               <div className="text-xs font-bold text-gray-400 uppercase mb-2">{stat.label}</div>
@@ -121,9 +177,14 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
           <div className="p-6 border-b flex flex-col md:flex-row justify-between items-center gap-4">
             <h2 className="font-display font-bold text-primary text-xl">Gestión de Pedidos</h2>
-            <div className="flex bg-gray-100 p-1 rounded-xl">
-              <button onClick={() => setActiveTab('all')} className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'all' ? 'bg-white shadow-sm text-primary' : 'text-gray-500'}`}>Todos</button>
-              <button onClick={() => setActiveTab('action')} className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'action' ? 'bg-white shadow-sm text-primary' : 'text-gray-500'}`}>Pendientes Acción</button>
+            <div className="flex items-center gap-4">
+              <div className="flex bg-gray-100 p-1 rounded-xl">
+                <button onClick={() => setActiveTab('all')} className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'all' ? 'bg-white shadow-sm text-primary' : 'text-gray-500'}`}>Todos</button>
+                <button onClick={() => setActiveTab('action')} className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'action' ? 'bg-white shadow-sm text-primary' : 'text-gray-500'}`}>Pendientes</button>
+              </div>
+              <button onClick={handleExport} className="px-4 py-2 bg-green-500 text-white text-sm font-bold rounded-lg hover:bg-green-600 transition-all">
+                📥 Exportar CSV
+              </button>
             </div>
           </div>
 
@@ -140,30 +201,36 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {mockOrders.map((order) => (
+                {loading ? (
+                  <tr><td colSpan={6} className="px-6 py-8 text-center text-gray-400">Cargando pedidos...</td></tr>
+                ) : orders.length === 0 ? (
+                  <tr><td colSpan={6} className="px-6 py-8 text-center text-gray-400">No hay pedidos aún</td></tr>
+                ) : orders.map((order) => (
                   <tr key={order.id} className="hover:bg-gray-50/50 transition-colors group">
                     <td className="px-6 py-4 font-bold">{order.id}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600 font-medium">{order.client}</td>
-                    <td className="px-6 py-4 text-sm text-gray-400">{order.product}</td>
-                    <td className="px-6 py-4 font-bold">${order.total.toLocaleString()}</td>
                     <td className="px-6 py-4">
-                      <div className={`px-3 py-1 rounded-full text-[10px] font-bold inline-flex items-center gap-1.5 ${STATUS_CONFIG[order.status].color}`}>
-                        <div className={`w-1.5 h-1.5 rounded-full ${STATUS_CONFIG[order.status].dot}`}></div>
-                        {STATUS_CONFIG[order.status].label}
+                      <div className="text-sm text-gray-600 font-medium">{order.client}</div>
+                      <div className="text-xs text-gray-400">{order.email}</div>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-400">{order.product}</td>
+                    <td className="px-6 py-4 font-bold">{order.date}</td>
+                    <td className="px-6 py-4">
+                      <div className={`px-3 py-1 rounded-full text-[10px] font-bold inline-flex items-center gap-1.5 ${STATUS_CONFIG[order.status]?.color || 'bg-gray-100 text-gray-600'}`}>
+                        {order.rawStatus}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-right flex justify-end gap-2">
-                      {order.status === OrderStatus.VERIFICANDO_PAGO && (
-                        <button 
-                          onClick={() => handleVerifyAI(order)}
-                          className="px-3 py-1.5 bg-accent/10 text-accent text-xs font-bold rounded-lg hover:bg-accent hover:text-white transition-all"
-                        >
-                          Verificar con IA ✨
-                        </button>
-                      )}
-                      <button className="p-2 text-gray-400 hover:text-primary transition-colors">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
-                      </button>
+                    <td className="px-6 py-4 text-right">
+                      <select
+                        className="text-xs border rounded-lg px-2 py-1 bg-white"
+                        value={order.rawStatus}
+                        onChange={(e) => handleChangeStatus(order.id, order.fullId, e.target.value)}
+                      >
+                        <option value="pendiente">Pendiente</option>
+                        <option value="procesando">Procesando</option>
+                        <option value="creando_proyecto">En Producción</option>
+                        <option value="completado">Enviado/Completado</option>
+                        <option value="error">Error</option>
+                      </select>
                     </td>
                   </tr>
                 ))}
@@ -191,7 +258,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                   <div className="space-y-6">
                     <div className="flex gap-4 p-4 bg-cream rounded-2xl border border-orange-100">
                       <div className="w-20 h-28 bg-gray-200 rounded-lg flex-shrink-0 overflow-hidden">
-                        <img src={mockOrders.find(o => o.id === verifyingId)?.receipt} className="w-full h-full object-cover" />
+                        <img src="https://picsum.photos/seed/receipt1/400/600" alt="Comprobante" className="w-full h-full object-cover" />
                       </div>
                       <div className="flex-grow space-y-1">
                         <p className="text-[10px] font-bold text-gray-400 uppercase">Referencia</p>

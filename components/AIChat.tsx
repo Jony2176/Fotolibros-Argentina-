@@ -1,12 +1,11 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { GoogleGenAI } from "@google/genai";
-import { PRODUCTS, PACKAGES, SHIPPING_COSTS, PROVINCIAS_MAPPING } from '../constants';
+import { PRODUCTS } from '../constants';
 
 const AIChat: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ role: 'user' | 'model'; text: string }[]>([
-    { role: 'model', text: '¡Hola! 👋 Soy tu asistente de Fotolibros Argentina. ¿En qué puedo ayudarte hoy?' }
+    { role: 'model', text: '¡Hola! 👋 Soy tu asistente de PIKSY. ¿En qué puedo ayudarte hoy?' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -27,32 +26,46 @@ const AIChat: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      const context = `
-        Eres un asistente de ventas amigable para "Fotolibros Argentina".
-        PRODUCTOS: ${JSON.stringify(PRODUCTS.map(p => ({ n: p.nombre, p: p.precioBase, t: p.tamanio, c: p.tapa })))}
-        PAQUETES: ${JSON.stringify(PACKAGES)}
-        ENVIOS: ${JSON.stringify(SHIPPING_COSTS)}
-        POLITICAS:
-        - Tiempo entrega: 10-14 días hábiles.
-        - Recomendación: 2-4 fotos por página.
-        - Máximo páginas: 80.
-        - Pagos: MercadoPago y Transferencia.
-        - Estilo: Amigable, servicial, usa emojis, respuestas cortas.
+      const systemPrompt = `
+        Eres el asistente de ventas de PIKSY (fotolibros personalizados).
+        
+        PRODUCTOS DISPONIBLES:
+        ${JSON.stringify(PRODUCTS.map(p => ({ nombre: p.nombre, precio: p.precioBase, tamaño: p.tamanio, tapa: p.tapa })))}
+        
+        REGLAS:
+        - Respuestas CORTAS y directas (máximo 3-4 oraciones por punto)
+        - Usa emojis con moderación
+        - Si preguntan por productos, menciona solo los 2-3 más relevantes
+        - Entrega: 10-14 días hábiles
+        - Pagos: MercadoPago y Transferencia
+        - Sé amigable pero conciso
       `;
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
-        contents: [...messages, { role: 'user', text: userText }].map(m => ({
-          role: m.role === 'model' ? 'model' : 'user',
-          parts: [{ text: m.text }]
-        })),
-        config: {
-          systemInstruction: context,
-        }
+      // Gemini API
+      const GEMINI_API_KEY = 'AIzaSyAWNg1r-6NkqOib6ma8nJN3PVNTQCresu4';
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [
+            ...messages.map(m => ({
+              role: m.role === 'model' ? 'model' : 'user',
+              parts: [{ text: m.text }]
+            })),
+            { role: 'user', parts: [{ text: userText }] }
+          ],
+          systemInstruction: { parts: [{ text: systemPrompt }] },
+          generationConfig: {
+            maxOutputTokens: 1500,
+            temperature: 0.7,
+          }
+        }),
       });
 
-      const aiText = response.text || "Lo siento, tuve un problema procesando tu consulta. ¿Podrías repetir?";
+      const data = await response.json();
+      const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Lo siento, tuve un problema procesando tu consulta. ¿Podrías repetir?";
       setMessages(prev => [...prev, { role: 'model', text: aiText }]);
     } catch (error) {
       console.error(error);
@@ -63,9 +76,9 @@ const AIChat: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-24 right-4 md:right-8 z-[100] font-sans">
+    <div className="fixed bottom-20 right-4 md:right-6 z-[100] font-sans">
       {isOpen ? (
-        <div className="bg-white w-[85vw] sm:w-[350px] h-[70vh] sm:h-[500px] rounded-3xl shadow-2xl flex flex-col border border-gray-100 overflow-hidden animate-fade-in mb-4">
+        <div className="bg-white w-[85vw] sm:w-[320px] h-[60vh] sm:h-[420px] rounded-2xl shadow-2xl flex flex-col border border-gray-100 overflow-hidden animate-fade-in mb-2">
           <header className="bg-primary p-4 text-white flex justify-between items-center shadow-md">
             <div className="flex items-center gap-2">
               <span className="text-xl">📸</span>
@@ -76,13 +89,12 @@ const AIChat: React.FC = () => {
             </div>
             <button onClick={() => setIsOpen(false)} className="bg-white/10 hover:bg-white/20 w-8 h-8 rounded-full flex items-center justify-center transition-colors">✕</button>
           </header>
-          
+
           <div ref={scrollRef} className="flex-grow p-4 overflow-y-auto space-y-4 bg-gray-50">
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] p-3 rounded-2xl text-sm shadow-sm leading-relaxed ${
-                  m.role === 'user' ? 'bg-primary text-white rounded-tr-none' : 'bg-white text-gray-700 border border-gray-100 rounded-tl-none'
-                }`}>
+                <div className={`max-w-[85%] p-3 rounded-2xl text-sm shadow-sm leading-relaxed ${m.role === 'user' ? 'bg-primary text-white rounded-tr-none' : 'bg-white text-gray-700 border border-gray-100 rounded-tl-none'
+                  }`}>
                   {m.text}
                 </div>
               </div>
@@ -99,15 +111,15 @@ const AIChat: React.FC = () => {
           </div>
 
           <div className="p-4 bg-white border-t flex gap-2">
-            <input 
-              type="text" 
+            <input
+              type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
               placeholder="Escribí tu mensaje..."
               className="flex-grow text-sm p-3 bg-gray-50 border-none rounded-xl focus:ring-2 ring-primary/10 outline-none text-primary"
             />
-            <button 
+            <button
               onClick={sendMessage}
               disabled={!input.trim() || isLoading}
               className="bg-primary text-white p-3 rounded-xl hover:bg-opacity-90 transition-all disabled:opacity-50"
@@ -117,12 +129,12 @@ const AIChat: React.FC = () => {
           </div>
         </div>
       ) : (
-        <button 
+        <button
           onClick={() => setIsOpen(true)}
-          className="bg-primary text-white p-4 md:px-6 md:py-4 rounded-full shadow-2xl flex items-center gap-2 hover:scale-110 transition-all active:scale-95 group border-2 border-white/20"
+          className="bg-primary text-white py-2 px-4 rounded-full shadow-lg hover:shadow-xl flex items-center gap-2 hover:-translate-y-1 transition-all active:scale-95 group border border-white/10"
         >
-          <span className="text-2xl md:text-xl group-hover:rotate-12 transition-transform">💬</span>
-          <span className="font-bold text-sm hidden md:inline">¿Necesitás ayuda?</span>
+          <span className="text-base group-hover:rotate-12 transition-transform">💬</span>
+          <span className="font-bold text-xs">Ayuda</span>
         </button>
       )}
     </div>
