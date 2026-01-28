@@ -105,20 +105,23 @@ const OrderWizard: React.FC<OrderWizardProps> = ({ onBack, initialProductCode })
     actions.setPedidoStatus({ estado: 'Enviando pedido...' });
 
     try {
-      // Create order payload
+      // Create order payload (formato esperado por backend)
       const payload = {
-        producto_codigo: state.productoCodigo,
-        estilo_diseno: state.estiloDiseno,
-        paginas_total: state.paginasTotal,
         cliente: {
           nombre: state.cliente.nombre,
           email: state.cliente.email,
-          telefono: state.cliente.telefono || '',
-          direccion: state.cliente.direccion
+          telefono: state.cliente.telefono || undefined
         },
-        metodo_pago: state.metodoPago,
-        titulo_tapa: null,
-        texto_lomo: null
+        libro: {
+          codigo_producto: state.productoCodigo,
+          tamano: selectedProduct?.tamanio || '',
+          tapa: selectedProduct?.tapa || '',
+          estilo: state.estiloDiseno,
+          ocasion: undefined,
+          titulo_personalizado: undefined
+        },
+        modo_confirmacion: true,
+        notas_cliente: undefined
       };
 
       // Send order
@@ -131,7 +134,7 @@ const OrderWizard: React.FC<OrderWizardProps> = ({ onBack, initialProductCode })
       if (!response.ok) throw new Error('Error al crear pedido');
 
       const data = await response.json();
-      actions.setPedidoStatus({ id: data.id, estado: 'Pedido creado, subiendo fotos...' });
+      actions.setPedidoStatus({ id: data.pedido_id, estado: 'Pedido creado, subiendo fotos...' });
 
       // Upload photos
       if (state.fotos.length > 0) {
@@ -140,7 +143,7 @@ const OrderWizard: React.FC<OrderWizardProps> = ({ onBack, initialProductCode })
           photosFormData.append('fotos', photo);
         });
 
-        await fetch(`http://168.231.98.115:8002/api/pedidos/${data.id}/fotos`, {
+        await fetch(`http://168.231.98.115:8002/api/pedidos/${data.pedido_id}/fotos`, {
           method: 'POST',
           body: photosFormData
         });
@@ -154,14 +157,14 @@ const OrderWizard: React.FC<OrderWizardProps> = ({ onBack, initialProductCode })
         formData.append('comprobante', state.comprobante);
         formData.append('monto_esperado', String(priceBreakdown.total));
 
-        await fetch(`http://168.231.98.115:8002/api/pedidos/${data.id}/comprobante`, {
+        await fetch(`http://168.231.98.115:8002/api/pedidos/${data.pedido_id}/comprobante`, {
           method: 'POST',
           body: formData
         });
       }
 
       // Start polling status
-      pollOrderStatus(data.id);
+      pollOrderStatus(data.pedido_id);
 
     } catch (error) {
       console.error('Error:', error);
@@ -173,7 +176,7 @@ const OrderWizard: React.FC<OrderWizardProps> = ({ onBack, initialProductCode })
   // Poll order status
   const pollOrderStatus = useCallback(async (id: string) => {
     try {
-      const response = await fetch(`http://168.231.98.115:8002/api/pedidos/${id}`);
+      const response = await fetch(`http://168.231.98.115:8002/api/pedidos/${id}/estado`);
       const data = await response.json();
 
       actions.setPedidoStatus({ 
