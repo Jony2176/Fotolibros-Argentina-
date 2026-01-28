@@ -86,7 +86,7 @@ async def crear_pedido(pedido: PedidoCreate):
 @router.post("/{pedido_id}/fotos")
 async def subir_fotos(
     pedido_id: str,
-    files: List[UploadFile] = File(...)
+    fotos: List[UploadFile] = File(...)
 ):
     """
     Subir fotos para un pedido
@@ -102,7 +102,7 @@ async def subir_fotos(
     
     # Guardar archivos
     cantidad_subidas = 0
-    for file in files:
+    for file in fotos:
         filepath = directorio / file.filename
         with filepath.open("wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
@@ -221,7 +221,11 @@ async def obtener_estado(pedido_id: str):
         if estado == 'completado':
             mensaje = "Tu pedido ha sido completado"
         elif estado == 'pendiente':
-            mensaje = "Pedido creado, esperando fotos"
+            if pedido['cantidad_fotos'] > 0:
+                mensaje = "Pedido recibido correctamente. ¡Gracias!"
+                estado = "recibido"
+            else:
+                mensaje = "Pedido creado, esperando fotos"
         else:
             mensaje = f"Estado: {estado}"
     
