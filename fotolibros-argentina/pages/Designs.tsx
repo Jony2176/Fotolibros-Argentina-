@@ -282,7 +282,7 @@ const DESIGNS_DATA: DesignItem[] = [
 
 const CATEGORIES = [
     { id: 'amigos', name: 'Amigos', emoji: '👯', image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80', description: 'Los mejores momentos con tus amigos.' },
-    { id: 'día de la madre', name: 'Día de la Madre', emoji: '👩‍👧‍👦', image: 'https://images.unsplash.com/photo-1490750967868-88aa35a14010?w=600&q=80', description: 'Regalos llenos de amor y recuerdos.' },
+    { id: 'día de la madre', name: 'Día de la Madre', emoji: '👩‍👧‍👦', image: 'https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=600&q=80', description: 'Regalos llenos de amor y recuerdos.' },
     { id: 'viajes', name: 'Viajes', emoji: '✈️', image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80', description: 'Tus aventuras merecen ser contadas.' },
     { id: 'boda', name: 'Boda', emoji: '💒', image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=80', description: 'El comienzo de su historia juntos.' },
     { id: 'niños', name: 'Niños', emoji: '🧸', image: 'https://images.unsplash.com/photo-1621468635836-494461c17b64?w=600&q=80', description: 'Crecen muy rápido, guardá cada momento.' },
