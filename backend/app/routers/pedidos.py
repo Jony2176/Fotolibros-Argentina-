@@ -67,8 +67,11 @@ async def crear_pedido(pedido: PedidoCreate):
         logger.error(f"❌ Error creando pedido: {e}")
         raise HTTPException(500, f"Error creando pedido: {str(e)}")
     
+    # Obtener el pedido recién creado para tener el ID correcto
+    pedido_creado = obtener_pedido(pedido_id)
+    
     return PedidoResponse(
-        id=1,  # SQLite auto-incrementa
+        id=pedido_creado['id'] if pedido_creado else 0,
         pedido_id=pedido_id,
         cliente_nombre=pedido.cliente.nombre,
         cliente_email=pedido.cliente.email,
@@ -228,4 +231,40 @@ async def obtener_estado(pedido_id: str):
         "posicion": posicion if posicion > 0 else None,
         "cantidad_fotos": pedido['cantidad_fotos'],
         "mensaje": mensaje
+    }
+
+
+@router.post("/{pedido_id}/comprobante")
+async def subir_comprobante(
+    pedido_id: str,
+    comprobante: UploadFile = File(...),
+    monto_esperado: float = Form(0)
+):
+    """
+    Subir comprobante de pago para un pedido
+    """
+    
+    # Verificar que el pedido existe
+    pedido = obtener_pedido(pedido_id)
+    if not pedido:
+        raise HTTPException(404, "Pedido no encontrado")
+    
+    # Crear directorio para comprobantes si no existe
+    directorio = Path(pedido['directorio_fotos']) if pedido['directorio_fotos'] else Path(settings.PHOTOS_BASE_DIR) / pedido_id
+    directorio.mkdir(parents=True, exist_ok=True)
+    
+    # Guardar comprobante
+    extension = Path(comprobante.filename).suffix or '.jpg'
+    filepath = directorio / f"comprobante{extension}"
+    with filepath.open("wb") as buffer:
+        shutil.copyfileobj(comprobante.file, buffer)
+    
+    logger.info(f"💳 Comprobante subido para {pedido_id} (monto esperado: ${monto_esperado})")
+    
+    return {
+        "success": True,
+        "pedido_id": pedido_id,
+        "archivo": str(filepath),
+        "monto_esperado": monto_esperado,
+        "mensaje": "Comprobante recibido correctamente"
     }
