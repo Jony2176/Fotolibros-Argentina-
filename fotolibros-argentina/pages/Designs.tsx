@@ -23,7 +23,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Mamá Flores',
         category: 'día de la madre',
         image: '/gallery/blanda-vertical.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/madre-libro.jpg',
         productCode: 'VE-22x28-BLANDA',
         description: 'Un homenaje visual lleno de delicadeza. Diseño estilo revista fino y elegante.',
         features: ['Tapa blanda estilo revista', 'Tipografías manuscritas', 'Ideal para fotos familiares'],
@@ -35,7 +35,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Recuerdos Familia',
         category: 'día de la madre',
         image: '/gallery/bebe-vertical.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/madre-libro.jpg',
         productCode: 'AP-28x22-DURA',
         description: 'Tapa dura premium para los momentos más especiales con mamá.',
         features: ['Tapa dura resistente', 'Formato grande apaisado', 'Ideal para muchas fotos'],
@@ -48,7 +48,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Verano 2024',
         category: 'viajes',
         image: '/gallery/verano-2024.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/viajes-libro.jpg',
         productCode: 'AP-21x15-DURA',
         description: 'Collage colorido para tus mejores vacaciones. Formato apaisado ideal para paisajes.',
         features: ['Diseño collage moderno', 'Colores vibrantes', 'Perfecto para vacaciones'],
@@ -60,7 +60,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Summer Memories',
         category: 'viajes',
         image: '/gallery/blanda-apaisado.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/viajes-libro.jpg',
         productCode: 'AP-21x15-BLANDA',
         description: 'Tapa blanda estilo revista. Ligero y práctico para llevar a todos lados.',
         features: ['Tapa blanda fina', 'Formato pocket', 'Económico y elegante'],
@@ -72,7 +72,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Aventuras Scrapbook',
         category: 'viajes',
         image: '/gallery/img-02.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/viajes-libro.jpg',
         productCode: 'CU-29x29-DURA',
         description: 'Estilo scrapbook con mapas y sellos postales. Gran formato cuadrado.',
         features: ['Estilo scrapbook', 'Formato grande 29x29', 'Gráficos de viaje'],
@@ -85,7 +85,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Nuestra Boda',
         category: 'boda',
         image: '/gallery/img-03.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/boda-libro.jpg',
         productCode: 'CU-21x21-DURA',
         description: 'El clásico elegante para el día más importante.',
         features: ['Diseño clásico', 'Tipografía elegante', 'Formato cuadrado'],
@@ -97,7 +97,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Premium Cuero',
         category: 'boda',
         image: '/gallery/premium-cuero-negro.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/boda-libro.jpg',
         productCode: 'CU-29x29-CUERO',
         description: 'Lujo y sofisticación. Encuadernación símil cuero negro premium.',
         features: ['Tapa símil cuero', 'Hasta 160 páginas', 'Acabado premium'],
@@ -109,7 +109,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Love Story',
         category: 'boda',
         image: '/gallery/blanda-cuadrado.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/boda-libro.jpg',
         productCode: 'CU-21x21-BLANDA',
         description: 'Romántico y delicado. Tapa blanda estilo revista.',
         features: ['Tapa blanda fina', 'Diseño romántico', 'Económico'],
@@ -122,7 +122,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Mi Primer Añito',
         category: 'niños',
         image: '/gallery/primer-anito.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/ninos-libro.jpg',
         productCode: 'CU-21x21-DURA',
         description: 'Diseño tierno y colorido para el primer año del bebé.',
         features: ['Colores pasteles', 'Diseño infantil', 'Tapa dura resistente'],
@@ -134,7 +134,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Graduación',
         category: 'niños',
         image: '/gallery/graduacion-vertical.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/ninos-libro.jpg',
         productCode: 'VE-22x28-DURA',
         description: 'Para celebrar los logros de los más pequeños.',
         features: ['Formato vertical A4', 'Tapa dura', 'Diseño formal'],
@@ -159,7 +159,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Caro y Berni',
         category: 'día de los enamorados',
         image: '/gallery/img-01.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/enamorados-libro.jpg',
         productCode: 'CU-21x21-DURA',
         description: 'Para celebrar cada capítulo de su historia de amor.',
         features: ['Foto de portada completa', 'Formato cuadrado', 'Diseño moderno'],
@@ -171,7 +171,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Our Love Story',
         category: 'día de los enamorados',
         image: '/gallery/blanda-cuadrado.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/enamorados-libro.jpg',
         productCode: 'CU-21x21-BLANDA',
         description: 'Tapa blanda romántica estilo revista.',
         features: ['Tapa blanda fina', 'Diseño romántico', 'Precio accesible'],
@@ -184,7 +184,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Nuestros Recuerdos',
         category: 'familia',
         image: '/gallery/bebe-vertical.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/familia-libro.jpg',
         productCode: 'AP-28x22-DURA',
         description: 'Un libro robusto para pasar de generación en generación.',
         features: ['Gran formato apaisado', 'Tapa dura premium', 'Para muchas fotos'],
@@ -196,7 +196,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Amigas Forever',
         category: 'amigos',
         image: '/gallery/amigas-abierto.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/amigos-libro.jpg',
         productCode: 'AP-41x29-DURA',
         description: 'Formato Maxi para ver cada detalle de los momentos especiales.',
         features: ['Tamaño máximo 41x29', 'Tapa dura', 'Impresión espectacular'],
@@ -209,7 +209,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Papá Premium',
         category: 'día del padre',
         image: '/gallery/premium-cuero-apaisado.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/padre-libro.jpg',
         productCode: 'AP-41x29-CUERO',
         description: 'Elegante símil cuero negro. El regalo perfecto para papá.',
         features: ['Símil cuero negro', 'Formato Maxi apaisado', 'Hasta 160 páginas'],
@@ -221,7 +221,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Momentos con Papá',
         category: 'día del padre',
         image: '/gallery/verano-2024.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/padre-libro.jpg',
         productCode: 'AP-21x15-DURA',
         description: 'Colorido y alegre para los mejores recuerdos.',
         features: ['Formato pocket apaisado', 'Tapa dura', 'Diseño collage'],
@@ -246,7 +246,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Fiesta',
         category: 'cumpleaños',
         image: '/gallery/primer-anito.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/cumple-libro.jpg',
         productCode: 'CU-21x21-DURA',
         description: 'Diseño festivo y colorido para cualquier edad.',
         features: ['Colores alegres', 'Formato cuadrado', 'Tapa dura'],
@@ -259,7 +259,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Viajes Elegante',
         category: 'viajes',
         image: '/gallery/img-05.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/viajes-libro.jpg',
         productCode: 'AP-28x22-DURA',
         description: 'Diseño minimalista con ventana en la tapa.',
         features: ['Ventana en portada', 'Estilo elegante', 'Formato grande'],
@@ -271,7 +271,7 @@ const DESIGNS_DATA: DesignItem[] = [
         name: 'Urban Vertical',
         category: 'postales',
         image: '/gallery/blanda-vertical.jpg',
-        openBookImage: '/gallery/amigas-abierto.jpg',
+        openBookImage: '/gallery/postales-libro.jpg',
         productCode: 'VE-22x28-BLANDA',
         description: 'Tus mejores fotos en formato revista vertical.',
         features: ['Tapa blanda fina', 'Formato A4 vertical', 'Estilo moderno'],
@@ -282,7 +282,7 @@ const DESIGNS_DATA: DesignItem[] = [
 
 const CATEGORIES = [
     { id: 'amigos', name: 'Amigos', emoji: '👯', image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80', description: 'Los mejores momentos con tus amigos.' },
-    { id: 'día de la madre', name: 'Día de la Madre', emoji: '👩‍👧‍👦', image: 'https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=600&q=80', description: 'Regalos llenos de amor y recuerdos.' },
+    { id: 'día de la madre', name: 'Día de la Madre', emoji: '👩‍👧‍👦', image: 'https://images.unsplash.com/photo-1531983412531-1f49a365ffed?w=600&q=80', description: 'Regalos llenos de amor y recuerdos.' },
     { id: 'viajes', name: 'Viajes', emoji: '✈️', image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80', description: 'Tus aventuras merecen ser contadas.' },
     { id: 'boda', name: 'Boda', emoji: '💒', image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=80', description: 'El comienzo de su historia juntos.' },
     { id: 'niños', name: 'Niños', emoji: '🧸', image: 'https://images.unsplash.com/photo-1621468635836-494461c17b64?w=600&q=80', description: 'Crecen muy rápido, guardá cada momento.' },
@@ -452,20 +452,6 @@ const Designs: React.FC<DesignsProps> = ({ onBack, onSelectDesign }) => {
                                                 </div>
                                             </div>
 
-                                            <div className={`absolute -bottom-8 w-48 shadow-2xl z-20 transform transition-all duration-500 hover:scale-105 ${isOdd ? '-left-6 rotate-3' : '-right-6 -rotate-3'}`}>
-                                                <div className="aspect-[3/4]">
-                                                    <Book3D
-                                                        width={bookWidth}
-                                                        height={bookHeight}
-                                                        coverType={product?.tapa as any || 'Dura'}
-                                                        imageUrl={design.image}
-                                                        title={design.name}
-                                                        titleFont={design.titleFont}
-                                                        titleColor={design.titleColor}
-                                                        className="h-full"
-                                                    />
-                                                </div>
-                                            </div>
                                         </div>
 
                                         {/* TEXT */}
