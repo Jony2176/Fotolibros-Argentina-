@@ -122,7 +122,7 @@ const OrderWizard: React.FC<OrderWizardProps> = ({ onBack, initialProductCode })
       };
 
       // Send order
-      const response = await fetch('http://168.231.98.115:8002/pedidos', {
+      const response = await fetch('http://168.231.98.115:8002/api/pedidos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -140,7 +140,7 @@ const OrderWizard: React.FC<OrderWizardProps> = ({ onBack, initialProductCode })
           photosFormData.append('fotos', photo);
         });
 
-        await fetch(`http://168.231.98.115:8002/pedidos/${data.id}/fotos`, {
+        await fetch(`http://168.231.98.115:8002/api/pedidos/${data.id}/fotos`, {
           method: 'POST',
           body: photosFormData
         });
@@ -154,7 +154,7 @@ const OrderWizard: React.FC<OrderWizardProps> = ({ onBack, initialProductCode })
         formData.append('comprobante', state.comprobante);
         formData.append('monto_esperado', String(priceBreakdown.total));
 
-        await fetch(`http://168.231.98.115:8002/pedidos/${data.id}/comprobante`, {
+        await fetch(`http://168.231.98.115:8002/api/pedidos/${data.id}/comprobante`, {
           method: 'POST',
           body: formData
         });
@@ -173,7 +173,7 @@ const OrderWizard: React.FC<OrderWizardProps> = ({ onBack, initialProductCode })
   // Poll order status
   const pollOrderStatus = useCallback(async (id: string) => {
     try {
-      const response = await fetch(`http://168.231.98.115:8002/pedidos/${id}`);
+      const response = await fetch(`http://168.231.98.115:8002/api/pedidos/${id}`);
       const data = await response.json();
 
       actions.setPedidoStatus({ 
