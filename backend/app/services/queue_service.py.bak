@@ -1,0 +1,181 @@
+"""
+Servicio de Cola con Redis
+Maneja el encolamiento y procesamiento secuencial de pedidos
+"""
+
+import redis.asyncio as redis
+import json
+from typing import Optional, Dict
+from datetime import datetime
+import logging
+
+from app.config import settings
+
+logger = logging.getLogger(__name__)
+
+# Cliente Redis global
+redis_client: Optional[redis.Redis] = None
+
+# Nombres de las colas
+COLA_PEDIDOS = "fotolibros:cola"
+PROCESANDO = "fotolibros:procesando"
+COMPLETADOS = "fotolibros:completados"
+ERRORES = "fotolibros:errores"
+
+
+async def init_redis():
+    """Inicializar conexión a Redis"""
+    global redis_client
+    redis_client = await redis.from_url(
+        settings.REDIS_URL,
+        encoding="utf-8",
+        decode_responses=True
+    )
+    logger.info("✅ Redis conectado")
+
+
+async def get_redis() -> redis.Redis:
+    """Obtener cliente Redis"""
+    if redis_client is None:
+        await init_redis()
+    return redis_client
+
+
+async def encolar_pedido(pedido_data: Dict) -> int:
+    """
+    Agregar pedido a la cola
+    
+    Returns:
+        Posición en la cola (1-indexed)
+    """
+    client = await get_redis()
+    
+    # Agregar timestamp de encolado
+    pedido_data['encolado_at'] = datetime.now().isoformat()
+    
+    # Agregar a la cola
+    await client.rpush(COLA_PEDIDOS, json.dumps(pedido_data))
+    
+    # Retornar posición
+    posicion = await client.llen(COLA_PEDIDOS)
+    
+    logger.info(f"📥 Pedido {pedido_data['pedido_id']} encolado en posición {posicion}")
+    
+    return posicion
+
+
+async def obtener_posicion_cola(pedido_id: str) -> int:
+    """
+    Obtener posición en cola
+    
+    Returns:
+        0 si está procesando
+        N si está en cola (1-indexed)
+        -1 si no está en cola
+    """
+    client = await get_redis()
+    
+    # Verificar si está procesando
+    procesando = await client.get(PROCESANDO)
+    if procesando:
+        data = json.loads(procesando)
+        if data.get('pedido_id') == pedido_id:
+            return 0  # Está procesando
+    
+    # Buscar en cola
+    cola_items = await client.lrange(COLA_PEDIDOS, 0, -1)
+    for i, item in enumerate(cola_items):
+        data = json.loads(item)
+        if data.get('pedido_id') == pedido_id:
+            return i + 1  # Posición en cola (1-indexed)
+    
+    return -1  # No está en cola
+
+
+async def obtener_siguiente_pedido() -> Optional[Dict]:
+    """
+    Obtener siguiente pedido de la cola
+    
+    Returns:
+        Dict con datos del pedido o None si cola vacía
+    """
+    client = await get_redis()
+    
+    # Extraer primer elemento de la cola
+    item = await client.lpop(COLA_PEDIDOS)
+    
+    if not item:
+        return None
+    
+    pedido_data = json.loads(item)
+    
+    # Marcar como procesando
+    await client.set(
+        PROCESANDO,
+        json.dumps({
+            'pedido_id': pedido_data['pedido_id'],
+            'inicio': datetime.now().isoformat()
+        })
+    )
+    
+    logger.info(f"🎨 Procesando pedido {pedido_data['pedido_id']}")
+    
+    return pedido_data
+
+
+async def marcar_completado(pedido_id: str):
+    """Marcar pedido como completado"""
+    client = await get_redis()
+    
+    # Agregar a completados
+    await client.rpush(
+        COMPLETADOS,
+        json.dumps({
+            'pedido_id': pedido_id,
+            'completado_at': datetime.now().isoformat()
+        })
+    )
+    
+    # Limpiar procesando
+    await client.delete(PROCESANDO)
+    
+    logger.info(f"✅ Pedido {pedido_id} completado")
+
+
+async def marcar_error(pedido_id: str, error: str):
+    """Marcar pedido con error"""
+    client = await get_redis()
+    
+    # Agregar a errores
+    await client.rpush(
+        ERRORES,
+        json.dumps({
+            'pedido_id': pedido_id,
+            'error': error,
+            'error_at': datetime.now().isoformat()
+        })
+    )
+    
+    # Limpiar procesando
+    await client.delete(PROCESANDO)
+    
+    logger.error(f"❌ Pedido {pedido_id} falló: {error}")
+
+
+async def get_queue_stats() -> Dict:
+    """Obtener estadísticas de la cola"""
+    client = await get_redis()
+    
+    cola_len = await client.llen(COLA_PEDIDOS)
+    completados_len = await client.llen(COMPLETADOS)
+    errores_len = await client.llen(ERRORES)
+    
+    procesando = await client.get(PROCESANDO)
+    procesando_data = json.loads(procesando) if procesando else None
+    
+    return {
+        "en_cola": cola_len,
+        "completados": completados_len,
+        "errores": errores_len,
+        "procesando": procesando_data
+    }

@@ -1,0 +1,121 @@
+{
+  // ===========================================
+  // CONFIGURACIÓN CLAWDBOT - FOTOLIBROS ARGENTINA
+  // ===========================================
+  // Copiar a ~/.clawdbot/clawdbot.json y ajustar valores
+  
+  // ------------------------------------------
+  // AGENTES (2 separados)
+  // ------------------------------------------
+  agents: {
+    defaults: {
+      model: "anthropic/claude-opus-4-5",
+      thinking: "high"
+    },
+    list: [
+      {
+        // AGENTE PRINCIPAL - Uso general/personal
+        id: "main",
+        default: true,
+        workspace: "~/clawd",
+        identity: {
+          name: "Clawd",
+          emoji: "🦞",
+          theme: "Asistente personal"
+        }
+      },
+      {
+        // AGENTE FOTOLIBROS - Solo procesa pedidos
+        id: "fotolibros",
+        workspace: "~/clawd-fotolibros",
+        identity: {
+          name: "FotoBot",
+          emoji: "📚",
+          theme: "Diseñador de fotolibros profesional"
+        },
+        // Thinking alto para razonamiento en ejecución
+        model: "anthropic/claude-opus-4-5"
+      }
+    ]
+  },
+  
+  // ------------------------------------------
+  // RUTEO DE MENSAJES
+  // ------------------------------------------
+  bindings: [
+    {
+      // Webhooks de pedidos van al agente fotolibros
+      agentId: "fotolibros",
+      match: { 
+        channel: "internal"  // hooks/agent genera sesiones internal
+      }
+    }
+    // Todo lo demás (Telegram, etc.) va a "main" por default
+  ],
+  
+  // ------------------------------------------
+  // WEBHOOKS
+  // ------------------------------------------
+  hooks: {
+    enabled: true,
+    token: "${CLAWDBOT_HOOK_TOKEN}",  // Cambiar por tu token secreto
+    path: "/hooks"
+  },
+  
+  // ------------------------------------------
+  // BROWSER (Chrome Headless)
+  // ------------------------------------------
+  browser: {
+    enabled: true,
+    headless: true,
+    noSandbox: true,
+    defaultProfile: "clawd",
+    controlUrl: "http://127.0.0.1:18791"
+  },
+  
+  // ------------------------------------------
+  // TELEGRAM
+  // ------------------------------------------
+  channels: {
+    telegram: {
+      enabled: true,
+      botToken: "${TELEGRAM_BOT_TOKEN}",
+      dmPolicy: "allowlist",
+      allowFrom: ["${TELEGRAM_ADMIN_ID}"],  // Tu ID de Telegram
+      // Notificaciones del agente fotolibros también van aquí
+      historyLimit: 50
+    }
+  },
+  
+  // ------------------------------------------
+  // GATEWAY
+  // ------------------------------------------
+  gateway: {
+    port: 18789,
+    bind: "loopback"  // Solo accesible localmente
+  },
+  
+  // ------------------------------------------
+  // SKILLS
+  // ------------------------------------------
+  skills: {
+    entries: {
+      "fotolibros-fdf": {
+        enabled: true,
+        env: {
+          FDF_USER: "${FDF_USER}",
+          FDF_PASS: "${FDF_PASS}"
+        }
+      }
+    }
+  },
+  
+  // ------------------------------------------
+  // LOGGING
+  // ------------------------------------------
+  logging: {
+    level: "info",
+    file: "/tmp/clawdbot/clawdbot.log",
+    consoleLevel: "info"
+  }
+}

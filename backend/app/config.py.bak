@@ -1,0 +1,49 @@
+"""
+Configuración del Backend
+"""
+
+from pydantic_settings import BaseSettings
+from typing import List
+import os
+
+
+class Settings(BaseSettings):
+    """Configuración desde variables de entorno"""
+    
+    # Base de datos
+    DATABASE_URL: str = "postgresql://fotolibros:fotolibros@localhost:5432/fotolibros"
+    
+    # Redis
+    REDIS_URL: str = "redis://localhost:6379/0"
+    
+    # Clawdbot
+    CLAWDBOT_URL: str = "http://127.0.0.1:18789"
+    CLAWDBOT_HOOK_TOKEN: str = ""
+    
+    # OpenRouter (para AGNO)
+    OPENROUTER_API_KEY: str = ""
+    AGNO_MODEL: str = "openai/gpt-4o-mini"
+    
+    # Telegram notificaciones
+    TELEGRAM_ADMIN_CHAT: str = ""
+    
+    # FDF Credenciales
+    FDF_USER: str = ""
+    FDF_PASS: str = ""
+    
+    # Storage de fotos
+    PHOTOS_BASE_DIR: str = "/var/fotolibros/pedidos"
+    
+    # CORS
+    CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:5173"]
+    
+    # Worker
+    WORKER_MAX_RETRIES: int = 3
+    WORKER_TIMEOUT_MINUTES: int = 45
+    
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+
+
+settings = Settings()
