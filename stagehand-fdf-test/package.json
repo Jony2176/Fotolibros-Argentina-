@@ -1,0 +1,30 @@
+{
+  "name": "stagehand-fdf-test",
+  "version": "1.0.0",
+  "description": "Test E2E hibrido para Fabrica de Fotolibros",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx tsx test-playwright-hybrid.ts",
+    "setup": "npx tsx test-setup.ts",
+    "backend": "npx tsx test-backend-flow.ts",
+    "agent": "npx tsx test-agent-hybrid.ts",
+    "hybrid": "npx tsx test-playwright-hybrid.ts",
+    "e2e:full": "npx tsx test-e2e-from-db.ts",
+    "e2e:drag": "npx tsx test-hybrid-drag.ts",
+    "e2e:editor": "npx tsx test-fdf-editor.ts"
+  },
+  "keywords": ["stagehand", "playwright", "e2e", "fotolibros"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@browserbasehq/stagehand": "^3.0.8",
+    "better-sqlite3": "^11.7.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/uuid": "^10.0.0"
+  }
+}

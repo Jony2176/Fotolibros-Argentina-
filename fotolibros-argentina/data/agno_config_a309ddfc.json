@@ -1,0 +1,497 @@
+{
+  "success": true,
+  "photos": [
+    {
+      "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\df543a27-271e-461e-92f5-6c2af2572164.png",
+      "filename": "df543a27-271e-461e-92f5-6c2af2572164.png",
+      "emotion": "neutral",
+      "intensity": 5,
+      "composition_quality": 5,
+      "people_count": 0,
+      "has_faces": false,
+      "main_subject": "unknown",
+      "importance": 5,
+      "suggested_caption": "df543a27-271e-461e-92f5-6c2af2572164.png"
+    },
+    {
+      "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\18006573-d889-4d61-828c-e31375fa22e5.png",
+      "filename": "18006573-d889-4d61-828c-e31375fa22e5.png",
+      "emotion": "neutral",
+      "intensity": 5,
+      "composition_quality": 5,
+      "people_count": 0,
+      "has_faces": false,
+      "main_subject": "unknown",
+      "importance": 5,
+      "suggested_caption": "18006573-d889-4d61-828c-e31375fa22e5.png"
+    },
+    {
+      "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\491de93c-8355-42c6-9800-2fcdc2f6ae84.png",
+      "filename": "491de93c-8355-42c6-9800-2fcdc2f6ae84.png",
+      "emotion": "neutral",
+      "intensity": 5,
+      "composition_quality": 5,
+      "people_count": 0,
+      "has_faces": false,
+      "main_subject": "unknown",
+      "importance": 5,
+      "suggested_caption": "491de93c-8355-42c6-9800-2fcdc2f6ae84.png"
+    },
+    {
+      "emotion": "paz",
+      "intensity": 7,
+      "composition_quality": 8,
+      "people_count": 1,
+      "has_faces": true,
+      "main_subject": "retrato",
+      "importance": 7,
+      "suggested_caption": "Cuando la serenidad nos abraza",
+      "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\886b2dfe-93df-430e-bc48-280ac6490b94.jpg",
+      "filename": "886b2dfe-93df-430e-bc48-280ac6490b94.jpg"
+    },
+    {
+      "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\63a64ad9-3a83-4dbe-83db-a49f4d0892d1.png",
+      "filename": "63a64ad9-3a83-4dbe-83db-a49f4d0892d1.png",
+      "emotion": "neutral",
+      "intensity": 5,
+      "composition_quality": 5,
+      "people_count": 0,
+      "has_faces": false,
+      "main_subject": "unknown",
+      "importance": 5,
+      "suggested_caption": "63a64ad9-3a83-4dbe-83db-a49f4d0892d1.png"
+    },
+    {
+      "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\faffe846-527a-4dde-9224-f7c0405c158e.jpg",
+      "filename": "faffe846-527a-4dde-9224-f7c0405c158e.jpg",
+      "emotion": "neutral",
+      "intensity": 5,
+      "composition_quality": 5,
+      "people_count": 0,
+      "has_faces": false,
+      "main_subject": "unknown",
+      "importance": 5,
+      "suggested_caption": "faffe846-527a-4dde-9224-f7c0405c158e.jpg"
+    },
+    {
+      "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\7bd2086a-6c88-4d6a-a074-d7f048a347ea.jpg",
+      "filename": "7bd2086a-6c88-4d6a-a074-d7f048a347ea.jpg",
+      "emotion": "neutral",
+      "intensity": 5,
+      "composition_quality": 5,
+      "people_count": 0,
+      "has_faces": false,
+      "main_subject": "unknown",
+      "importance": 5,
+      "suggested_caption": "7bd2086a-6c88-4d6a-a074-d7f048a347ea.jpg"
+    },
+    {
+      "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\d8ed0961-dcf7-47f3-b9a1-5a98e2e95748.jpg",
+      "filename": "d8ed0961-dcf7-47f3-b9a1-5a98e2e95748.jpg",
+      "emotion": "neutral",
+      "intensity": 5,
+      "composition_quality": 5,
+      "people_count": 0,
+      "has_faces": false,
+      "main_subject": "unknown",
+      "importance": 5,
+      "suggested_caption": "d8ed0961-dcf7-47f3-b9a1-5a98e2e95748.jpg"
+    },
+    {
+      "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\cf2bb66d-ed7a-44f9-abd8-90b3725932c5.jpg",
+      "filename": "cf2bb66d-ed7a-44f9-abd8-90b3725932c5.jpg",
+      "emotion": "neutral",
+      "intensity": 5,
+      "composition_quality": 5,
+      "people_count": 0,
+      "has_faces": false,
+      "main_subject": "unknown",
+      "importance": 5,
+      "suggested_caption": "cf2bb66d-ed7a-44f9-abd8-90b3725932c5.jpg"
+    },
+    {
+      "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\971f84c6-20ae-4b66-98a1-d9b094e7e049.jpg",
+      "filename": "971f84c6-20ae-4b66-98a1-d9b094e7e049.jpg",
+      "emotion": "neutral",
+      "intensity": 5,
+      "composition_quality": 5,
+      "people_count": 0,
+      "has_faces": false,
+      "main_subject": "unknown",
+      "importance": 5,
+      "suggested_caption": "971f84c6-20ae-4b66-98a1-d9b094e7e049.jpg"
+    },
+    {
+      "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\7a06ecae-dc2e-4d3f-a1a3-121811293b11.png",
+      "filename": "7a06ecae-dc2e-4d3f-a1a3-121811293b11.png",
+      "emotion": "neutral",
+      "intensity": 5,
+      "composition_quality": 5,
+      "people_count": 0,
+      "has_faces": false,
+      "main_subject": "unknown",
+      "importance": 5,
+      "suggested_caption": "7a06ecae-dc2e-4d3f-a1a3-121811293b11.png"
+    },
+    {
+      "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\249c081d-3ff3-4c29-9b3f-4e239494316a.jpeg",
+      "filename": "249c081d-3ff3-4c29-9b3f-4e239494316a.jpeg",
+      "emotion": "neutral",
+      "intensity": 5,
+      "composition_quality": 5,
+      "people_count": 0,
+      "has_faces": false,
+      "main_subject": "unknown",
+      "importance": 5,
+      "suggested_caption": "249c081d-3ff3-4c29-9b3f-4e239494316a.jpeg"
+    }
+  ],
+  "motif": {
+    "motif": "generic",
+    "confidence": 0,
+    "evidence": "Error en detección",
+    "design_config": {
+      "template": "Moderno",
+      "colors": [
+        "#FFFFFF",
+        "#E0E0E0",
+        "#9E9E9E"
+      ],
+      "decorations": [],
+      "font_style": "modern"
+    }
+  },
+  "chronology": {
+    "chronology_type": "generic",
+    "confidence": 0,
+    "evidence": "Error en detección: Agent.run() missing 1 required positional argument: 'input'",
+    "ordered_photos": [
+      {
+        "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\df543a27-271e-461e-92f5-6c2af2572164.png",
+        "filename": "df543a27-271e-461e-92f5-6c2af2572164.png",
+        "emotion": "neutral",
+        "intensity": 5,
+        "composition_quality": 5,
+        "people_count": 0,
+        "has_faces": false,
+        "main_subject": "unknown",
+        "importance": 5,
+        "suggested_caption": "df543a27-271e-461e-92f5-6c2af2572164.png"
+      },
+      {
+        "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\18006573-d889-4d61-828c-e31375fa22e5.png",
+        "filename": "18006573-d889-4d61-828c-e31375fa22e5.png",
+        "emotion": "neutral",
+        "intensity": 5,
+        "composition_quality": 5,
+        "people_count": 0,
+        "has_faces": false,
+        "main_subject": "unknown",
+        "importance": 5,
+        "suggested_caption": "18006573-d889-4d61-828c-e31375fa22e5.png"
+      },
+      {
+        "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\491de93c-8355-42c6-9800-2fcdc2f6ae84.png",
+        "filename": "491de93c-8355-42c6-9800-2fcdc2f6ae84.png",
+        "emotion": "neutral",
+        "intensity": 5,
+        "composition_quality": 5,
+        "people_count": 0,
+        "has_faces": false,
+        "main_subject": "unknown",
+        "importance": 5,
+        "suggested_caption": "491de93c-8355-42c6-9800-2fcdc2f6ae84.png"
+      },
+      {
+        "emotion": "paz",
+        "intensity": 7,
+        "composition_quality": 8,
+        "people_count": 1,
+        "has_faces": true,
+        "main_subject": "retrato",
+        "importance": 7,
+        "suggested_caption": "Cuando la serenidad nos abraza",
+        "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\886b2dfe-93df-430e-bc48-280ac6490b94.jpg",
+        "filename": "886b2dfe-93df-430e-bc48-280ac6490b94.jpg"
+      },
+      {
+        "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\63a64ad9-3a83-4dbe-83db-a49f4d0892d1.png",
+        "filename": "63a64ad9-3a83-4dbe-83db-a49f4d0892d1.png",
+        "emotion": "neutral",
+        "intensity": 5,
+        "composition_quality": 5,
+        "people_count": 0,
+        "has_faces": false,
+        "main_subject": "unknown",
+        "importance": 5,
+        "suggested_caption": "63a64ad9-3a83-4dbe-83db-a49f4d0892d1.png"
+      },
+      {
+        "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\faffe846-527a-4dde-9224-f7c0405c158e.jpg",
+        "filename": "faffe846-527a-4dde-9224-f7c0405c158e.jpg",
+        "emotion": "neutral",
+        "intensity": 5,
+        "composition_quality": 5,
+        "people_count": 0,
+        "has_faces": false,
+        "main_subject": "unknown",
+        "importance": 5,
+        "suggested_caption": "faffe846-527a-4dde-9224-f7c0405c158e.jpg"
+      },
+      {
+        "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\7bd2086a-6c88-4d6a-a074-d7f048a347ea.jpg",
+        "filename": "7bd2086a-6c88-4d6a-a074-d7f048a347ea.jpg",
+        "emotion": "neutral",
+        "intensity": 5,
+        "composition_quality": 5,
+        "people_count": 0,
+        "has_faces": false,
+        "main_subject": "unknown",
+        "importance": 5,
+        "suggested_caption": "7bd2086a-6c88-4d6a-a074-d7f048a347ea.jpg"
+      },
+      {
+        "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\d8ed0961-dcf7-47f3-b9a1-5a98e2e95748.jpg",
+        "filename": "d8ed0961-dcf7-47f3-b9a1-5a98e2e95748.jpg",
+        "emotion": "neutral",
+        "intensity": 5,
+        "composition_quality": 5,
+        "people_count": 0,
+        "has_faces": false,
+        "main_subject": "unknown",
+        "importance": 5,
+        "suggested_caption": "d8ed0961-dcf7-47f3-b9a1-5a98e2e95748.jpg"
+      },
+      {
+        "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\cf2bb66d-ed7a-44f9-abd8-90b3725932c5.jpg",
+        "filename": "cf2bb66d-ed7a-44f9-abd8-90b3725932c5.jpg",
+        "emotion": "neutral",
+        "intensity": 5,
+        "composition_quality": 5,
+        "people_count": 0,
+        "has_faces": false,
+        "main_subject": "unknown",
+        "importance": 5,
+        "suggested_caption": "cf2bb66d-ed7a-44f9-abd8-90b3725932c5.jpg"
+      },
+      {
+        "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\971f84c6-20ae-4b66-98a1-d9b094e7e049.jpg",
+        "filename": "971f84c6-20ae-4b66-98a1-d9b094e7e049.jpg",
+        "emotion": "neutral",
+        "intensity": 5,
+        "composition_quality": 5,
+        "people_count": 0,
+        "has_faces": false,
+        "main_subject": "unknown",
+        "importance": 5,
+        "suggested_caption": "971f84c6-20ae-4b66-98a1-d9b094e7e049.jpg"
+      },
+      {
+        "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\7a06ecae-dc2e-4d3f-a1a3-121811293b11.png",
+        "filename": "7a06ecae-dc2e-4d3f-a1a3-121811293b11.png",
+        "emotion": "neutral",
+        "intensity": 5,
+        "composition_quality": 5,
+        "people_count": 0,
+        "has_faces": false,
+        "main_subject": "unknown",
+        "importance": 5,
+        "suggested_caption": "7a06ecae-dc2e-4d3f-a1a3-121811293b11.png"
+      },
+      {
+        "filepath": "uploads\\a309ddfc-ae43-40e7-ba66-80dc1a330cdf\\249c081d-3ff3-4c29-9b3f-4e239494316a.jpeg",
+        "filename": "249c081d-3ff3-4c29-9b3f-4e239494316a.jpeg",
+        "emotion": "neutral",
+        "intensity": 5,
+        "composition_quality": 5,
+        "people_count": 0,
+        "has_faces": false,
+        "main_subject": "unknown",
+        "importance": 5,
+        "suggested_caption": "249c081d-3ff3-4c29-9b3f-4e239494316a.jpeg"
+      }
+    ],
+    "temporal_metadata": {},
+    "key_moments": [],
+    "original_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "story": {
+    "cover": {
+      "title": "Momentos que Inspiran",
+      "subtitle": "Un viaje a través de instantes eternos",
+      "author_line": "Jony - 2024"
+    },
+    "dedication": {
+      "text": "A esos momentos fugaces que han dejado huella en mi alma. Porque cada instante cuenta una historia que nunca olvidaré.",
+      "recipient": "Para todos los que comparten el viaje de la vida"
+    },
+    "chapters": [
+      {
+        "title": "El Susurro de la Existencia",
+        "emotional_tone": "nostálgico",
+        "photo_indices": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "chapter_intro": "Cada fotografía es un eco que nos invita a recordar."
+      },
+      {
+        "title": "Los Días de Luz",
+        "emotional_tone": "alegre",
+        "photo_indices": [
+          5,
+          6,
+          7
+        ],
+        "chapter_intro": "Risas, miradas y momentos que iluminan el alma."
+      },
+      {
+        "title": "El Viaje Interior",
+        "emotional_tone": "reflectivo",
+        "photo_indices": [
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "chapter_intro": "Las experiencias más profundas nos moldean y nos transforman."
+      }
+    ],
+    "photo_captions": [
+      {
+        "photo_index": 1,
+        "caption": "El instante en que la vida nos habló en susurros."
+      },
+      {
+        "photo_index": 2,
+        "caption": "Cuando capturamos el reflejo de nuestras auténticas sonrisas."
+      },
+      {
+        "photo_index": 3,
+        "caption": "Un rayo de luz que atravesaba nuestros corazones."
+      },
+      {
+        "photo_index": 4,
+        "caption": "Cuando la serenidad nos abraza y todo parece en calma."
+      },
+      {
+        "photo_index": 5,
+        "caption": "La alegría que brotó como un río en días soleados."
+      },
+      {
+        "photo_index": 6,
+        "caption": "Donde las risas se convierten en melodías eternas."
+      },
+      {
+        "photo_index": 7,
+        "caption": "Una mirada que revela más de lo que las palabras pueden decir."
+      },
+      {
+        "photo_index": 8,
+        "caption": "El momento en que nos sumergimos en la búsqueda de lo que somos."
+      },
+      {
+        "photo_index": 9,
+        "caption": "La magia en lo cotidiano, lo extraordinario en lo simple."
+      },
+      {
+        "photo_index": 10,
+        "caption": "La esencia del viaje, donde cada paso cuenta una historia."
+      },
+      {
+        "photo_index": 11,
+        "caption": "El abrazo compartido, un refugio que calma las tempestades."
+      },
+      {
+        "photo_index": 12,
+        "caption": "El instante de contemplar lo vivido y agradecer cada momento."
+      }
+    ],
+    "back_cover": {
+      "text": "Cada fotografía es un testigo de lo que hemos vivido. Gracias por acompañarme en este viaje de emociones y descubrimientos.",
+      "closing_quote": "Recuerda, la vida es un hermoso lienzo en blanco, cada instante es una pincelada de amor."
+    },
+    "epilogue": "Hacia adelante, con la certeza de que cada nuevo día traerá más momentos inolvidables.",
+    "overall_theme": "amor"
+  },
+  "design": {
+    "template_choice": {
+      "primary": "Moderno",
+      "reasoning": "Fallback por error en curación",
+      "backup_options": [
+        "Clásico",
+        "Natural"
+      ]
+    },
+    "layout_strategy": {
+      "hero_pages": [],
+      "collage_pages": [],
+      "empty_pages": [],
+      "page_assignments": []
+    },
+    "color_scheme": {
+      "primary": "#FFFFFF",
+      "secondary": "#E0E0E0",
+      "accent": "#9E9E9E",
+      "mood": "neutral",
+      "reasoning": "Colores por defecto"
+    },
+    "typography": {
+      "font_style": "modern",
+      "reasoning": "Estilo por defecto del motivo",
+      "size_hierarchy": {
+        "cover_title": "xlarge",
+        "chapter_titles": "large",
+        "captions": "medium"
+      }
+    },
+    "decorations": {
+      "use_cliparts": false,
+      "clipart_types": [],
+      "use_backgrounds": false,
+      "use_frames": false,
+      "style": "minimal",
+      "reasoning": "Decoraciones básicas del motivo"
+    },
+    "quality_targets": {
+      "minimum_page_quality": 8,
+      "emotional_impact": 9,
+      "coherence_score": 8
+    },
+    "design_notes": "Diseño generado con fallback por error"
+  },
+  "logs": [
+    "[03:21:44] [INFO] [AGNO] Iniciando procesamiento con AGNO Team (5 agentes)",
+    "[03:21:44] [INFO] [FOTO] FASE 1/5: Analizando 12 fotos con Vision AI...",
+    "[03:22:52] [INFO]    [OK] 12 fotos analizadas",
+    "[03:22:52] [INFO] [MOTIF] FASE 2/5: Detectando motivo del fotolibro...",
+    "[03:23:10] [INFO]    [OK] Motivo: generic (0%)",
+    "[03:23:10] [INFO]    [OK] Template sugerido: Moderno",
+    "[03:23:10] [INFO] [CHRONO] FASE 3/5: Ordenando fotos cronológicamente...",
+    "[03:23:10] [INFO]    [OK] Tipo cronológico: generic",
+    "[03:23:10] [INFO]    [OK] Fotos reordenadas: 12",
+    "[03:23:10] [INFO] [STORY] FASE 4/5: Generando textos emotivos...",
+    "[03:23:23] [INFO]    [OK] Titulo: \"Momentos que Inspiran\"",
+    "[03:23:23] [INFO]    [OK] Capitulos: 3",
+    "[03:23:23] [INFO]    [OK] Leyendas: 12",
+    "[03:23:23] [INFO] [AGNO] FASE 5/5: Curando diseño artístico...",
+    "[03:23:50] [INFO]    [WARN]  Diseño con fallback: Expecting value: line 1 column 1 (char 0)",
+    "[03:23:50] [INFO] [OK] Procesamiento AGNO Team completado exitosamente"
+  ]
+}
