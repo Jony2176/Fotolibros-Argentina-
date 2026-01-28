@@ -1,0 +1,36 @@
+# Fotolibros Argentina - Dependencias
+# =====================================
+
+# Framework AGNO
+agno>=2.3.5
+
+# API REST
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.6
+
+# HTTP Client
+httpx>=0.26.0
+
+# Base de datos
+# (SQLite viene con Python)
+
+# Validación
+pydantic>=2.5.0
+email-validator>=2.1.0
+
+# Utilidades
+python-dotenv>=1.0.0
+loguru>=0.7.2
+
+# Automatización web (Browserbase + Playwright + Stagehand V3)
+browserbase>=1.0.0
+playwright>=1.40.0
+stagehand>=3.4.0
+
+# Procesamiento de imágenes (REQUERIDO para AGNO Team Vision AI)
+pillow>=10.2.0
+
+# Para producción
+gunicorn>=21.2.0
+

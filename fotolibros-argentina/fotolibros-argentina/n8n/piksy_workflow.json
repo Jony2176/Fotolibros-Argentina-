@@ -1,0 +1,367 @@
+{
+    "name": "PIKSY - Automatización Fotolibros",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "nuevo-pedido",
+                "responseMode": "responseNode",
+                "options": {}
+            },
+            "id": "webhook-nuevo-pedido",
+            "name": "Webhook Nuevo Pedido",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 2,
+            "position": [
+                240,
+                300
+            ],
+            "webhookId": "piksy-nuevo-pedido"
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "http://localhost:8000/webhook/n8n/nuevo-pedido",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "producto_codigo",
+                            "value": "={{ $json.body.producto_codigo }}"
+                        },
+                        {
+                            "name": "estilo_diseno",
+                            "value": "={{ $json.body.estilo_diseno }}"
+                        },
+                        {
+                            "name": "paginas_total",
+                            "value": "={{ $json.body.paginas_total }}"
+                        },
+                        {
+                            "name": "cliente_nombre",
+                            "value": "={{ $json.body.cliente.nombre }}"
+                        },
+                        {
+                            "name": "cliente_email",
+                            "value": "={{ $json.body.cliente.email }}"
+                        },
+                        {
+                            "name": "cliente_telefono",
+                            "value": "={{ $json.body.cliente.telefono }}"
+                        },
+                        {
+                            "name": "direccion_calle",
+                            "value": "={{ $json.body.cliente.direccion.calle }}"
+                        },
+                        {
+                            "name": "direccion_ciudad",
+                            "value": "={{ $json.body.cliente.direccion.ciudad }}"
+                        },
+                        {
+                            "name": "direccion_provincia",
+                            "value": "={{ $json.body.cliente.direccion.provincia }}"
+                        },
+                        {
+                            "name": "direccion_cp",
+                            "value": "={{ $json.body.cliente.direccion.cp }}"
+                        },
+                        {
+                            "name": "metodo_pago",
+                            "value": "={{ $json.body.metodo_pago }}"
+                        },
+                        {
+                            "name": "titulo_tapa",
+                            "value": "={{ $json.body.titulo_tapa }}"
+                        },
+                        {
+                            "name": "texto_lomo",
+                            "value": "={{ $json.body.texto_lomo }}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "http-crear-pedido",
+            "name": "Crear Pedido en Backend",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                480,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "boolean": [
+                        {
+                            "value1": "={{ $json.success }}",
+                            "value2": true
+                        }
+                    ]
+                }
+            },
+            "id": "if-exito",
+            "name": "¿Éxito?",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2,
+            "position": [
+                700,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "assignments": {
+                    "assignments": [
+                        {
+                            "id": "pedido_id",
+                            "name": "pedido_id",
+                            "value": "={{ $json.pedido_id }}",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "set-pedido-id",
+            "name": "Guardar Pedido ID",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.4,
+            "position": [
+                920,
+                200
+            ]
+        },
+        {
+            "parameters": {
+                "amount": 5,
+                "unit": "seconds"
+            },
+            "id": "wait-5s",
+            "name": "Esperar 5s",
+            "type": "n8n-nodes-base.wait",
+            "typeVersion": 1.1,
+            "position": [
+                1140,
+                200
+            ]
+        },
+        {
+            "parameters": {
+                "url": "=http://localhost:8000/webhook/n8n/estado/{{ $json.pedido_id }}",
+                "options": {}
+            },
+            "id": "http-obtener-estado",
+            "name": "Consultar Estado",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                1360,
+                200
+            ]
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "string": [
+                        {
+                            "value1": "={{ $json.estado }}",
+                            "value2": "completado"
+                        }
+                    ]
+                }
+            },
+            "id": "if-completado",
+            "name": "¿Completado?",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2,
+            "position": [
+                1580,
+                200
+            ]
+        },
+        {
+            "parameters": {
+                "fromEmail": "noreply@piksy.com.ar",
+                "toEmail": "={{ $('Webhook Nuevo Pedido').item.json.body.cliente.email }}",
+                "subject": "🎉 ¡Tu fotolibro está en producción! - PIKSY",
+                "emailType": "html",
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }\n    .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 10px; padding: 30px; }\n    .header { text-align: center; margin-bottom: 30px; }\n    .logo { font-size: 28px; font-weight: bold; color: #1a365d; }\n    .content { color: #333; line-height: 1.6; }\n    .highlight { background: #e6fffa; padding: 15px; border-radius: 8px; margin: 20px 0; }\n    .footer { text-align: center; margin-top: 30px; color: #888; font-size: 12px; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <div class=\"logo\">📸 PIKSY</div>\n    </div>\n    <div class=\"content\">\n      <h2>¡Hola {{ $('Webhook Nuevo Pedido').item.json.body.cliente.nombre }}!</h2>\n      <p>¡Excelentes noticias! Tu fotolibro ya está en producción.</p>\n      <div class=\"highlight\">\n        <strong>ID del Pedido:</strong> {{ $json.pedido_id }}<br>\n        <strong>Producto:</strong> {{ $('Webhook Nuevo Pedido').item.json.body.producto_codigo }}<br>\n        <strong>Estado:</strong> ✅ En producción\n      </div>\n      <p>El tiempo estimado de entrega es de <strong>10-14 días hábiles</strong>.</p>\n      <p>Te enviaremos otro email cuando tu pedido sea despachado con el código de seguimiento.</p>\n    </div>\n    <div class=\"footer\">\n      <p>PIKSY - Fotolibros Personalizados</p>\n      <p>¿Preguntas? Respondé este email o escribinos a soporte@piksy.com.ar</p>\n    </div>\n  </div>\n</body>\n</html>",
+                "options": {}
+            },
+            "id": "email-exito",
+            "name": "Email Pedido Completado",
+            "type": "n8n-nodes-base.emailSend",
+            "typeVersion": 2.1,
+            "position": [
+                1800,
+                100
+            ]
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "={{ JSON.stringify({ success: true, pedido_id: $('http-crear-pedido').item.json.pedido_id, mensaje: 'Pedido recibido y en proceso' }) }}",
+                "options": {}
+            },
+            "id": "response-exito",
+            "name": "Respuesta Éxito",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1.1,
+            "position": [
+                920,
+                100
+            ]
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "={{ JSON.stringify({ success: false, error: 'Error al procesar el pedido' }) }}",
+                "options": {
+                    "responseCode": 500
+                }
+            },
+            "id": "response-error",
+            "name": "Respuesta Error",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1.1,
+            "position": [
+                920,
+                400
+            ]
+        },
+        {
+            "parameters": {
+                "loopEvents": [
+                    {
+                        "cronExpression": "*/30 * * * * *"
+                    }
+                ]
+            },
+            "id": "loop-estado",
+            "name": "Loop Verificar Estado",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1.2,
+            "position": [
+                1580,
+                350
+            ],
+            "disabled": true
+        }
+    ],
+    "connections": {
+        "Webhook Nuevo Pedido": {
+            "main": [
+                [
+                    {
+                        "node": "Crear Pedido en Backend",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Crear Pedido en Backend": {
+            "main": [
+                [
+                    {
+                        "node": "¿Éxito?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "¿Éxito?": {
+            "main": [
+                [
+                    {
+                        "node": "Guardar Pedido ID",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Respuesta Éxito",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Respuesta Error",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Guardar Pedido ID": {
+            "main": [
+                [
+                    {
+                        "node": "Esperar 5s",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Esperar 5s": {
+            "main": [
+                [
+                    {
+                        "node": "Consultar Estado",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Consultar Estado": {
+            "main": [
+                [
+                    {
+                        "node": "¿Completado?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "¿Completado?": {
+            "main": [
+                [
+                    {
+                        "node": "Email Pedido Completado",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Esperar 5s",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1",
+        "saveManualExecutions": true,
+        "callerPolicy": "workflowsFromSameOwner"
+    },
+    "staticData": null,
+    "tags": [
+        {
+            "name": "PIKSY",
+            "createdAt": "2026-01-18T00:00:00.000Z",
+            "updatedAt": "2026-01-18T00:00:00.000Z"
+        }
+    ],
+    "triggerCount": 1,
+    "updatedAt": "2026-01-18T00:00:00.000Z",
+    "versionId": "1"
+}

@@ -1,0 +1,43 @@
+{
+  "project_id": "TEST-2026-001",
+  "customer": {
+    "name": "Prueba Skill",
+    "email": "test@example.com"
+  },
+  "product": {
+    "code": "CU-21x21-DURA", 
+    "size": "21x21",
+    "cover": "Dura"
+  },
+  "chronology": {
+    "ordered_photos": [
+      "foto01_portada.jpg",
+      "foto02_familia.jpg", 
+      "foto03_paisaje.jpg",
+      "foto04_detalle.jpg",
+      "foto05_grupo.jpg"
+    ]
+  },
+  "story": {
+    "cover": {
+      "title": "Prueba Skill FDF",
+      "subtitle": "Test Enero 2026"
+    },
+    "dedication": {
+      "text": "Dedicado a probar que el skill funciona perfectamente"
+    },
+    "photo_captions": [
+      {"photo": "foto02_familia.jpg", "caption": "Momento especial en familia"},
+      {"photo": "foto03_paisaje.jpg", "caption": "Hermoso paisaje"}
+    ]
+  },
+  "design": {
+    "style": "minimalista",
+    "template_choice": {
+      "primary": "Clean Modern",
+      "fallback": "Simple White"
+    },
+    "layout_strategy": "cronologico"
+  },
+  "modo_confirmacion": true
+}
