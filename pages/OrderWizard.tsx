@@ -184,7 +184,7 @@ const OrderWizard: React.FC<OrderWizardProps> = ({ onBack, initialProductCode })
         progreso: data.progreso 
       });
 
-      if (data.estado === 'completado' || data.progreso === 100) {
+      if (data.estado === 'completado' || data.estado === 'recibido' || data.progreso === 100) {
         actions.setSubmitting(false);
       } else if (data.estado === 'error') {
         actions.setSubmitting(false);

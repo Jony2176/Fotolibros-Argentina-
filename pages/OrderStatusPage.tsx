@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Package, Check, ChevronRight, ArrowLeft } from 'lucide-react';
 import { OrderStatus, STATUS_CONFIG } from '../types';
 
 interface OrderStatusPageProps {
@@ -21,7 +22,7 @@ const OrderStatusPage: React.FC<OrderStatusPageProps> = ({ onBack }) => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8000/tracking', {
+      const response = await fetch('http://168.231.98.115:8002/tracking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, pedido_id: orderId })
@@ -81,7 +82,9 @@ const OrderStatusPage: React.FC<OrderStatusPageProps> = ({ onBack }) => {
     <div className="bg-cream min-h-screen flex flex-col">
       <header className="bg-white border-b px-4 py-6 shadow-sm">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <button onClick={onBack} className="text-gray-400 hover:text-primary transition-colors">← Volver</button>
+          <button onClick={onBack} className="text-gray-400 hover:text-primary transition-colors flex items-center gap-1">
+            <ArrowLeft className="w-4 h-4" /> Volver
+          </button>
           <div className="font-display font-bold text-primary tracking-widest uppercase">Consultar Estado</div>
           <div className="w-10"></div>
         </div>
@@ -91,9 +94,11 @@ const OrderStatusPage: React.FC<OrderStatusPageProps> = ({ onBack }) => {
         {!order ? (
           <div className="max-w-md mx-auto bg-white p-10 rounded-3xl shadow-xl border border-gray-100">
             <div className="text-center mb-8">
-              <span className="text-4xl mb-4 block">📦</span>
+              <div className="mb-4 flex justify-center">
+                <Package className="w-10 h-10 text-primary" />
+              </div>
               <h2 className="text-2xl font-display font-bold text-primary">Seguimiento de Pedido</h2>
-              <p className="text-sm text-gray-500 mt-2">Ingresá los datos para localizar tu fotolibro.</p>
+              <p className="text-sm text-gray-500 mt-2">Ingresa los datos para localizar tu fotolibro.</p>
             </div>
 
             <div className="space-y-6">
@@ -122,7 +127,11 @@ const OrderStatusPage: React.FC<OrderStatusPageProps> = ({ onBack }) => {
                 disabled={loading}
                 className="w-full py-5 bg-primary text-white font-bold rounded-2xl shadow-lg hover:bg-opacity-95 disabled:opacity-50 mt-4 transition-all active:scale-[0.98]"
               >
-                {loading ? 'Buscando historia...' : 'Consultar Pedido →'}
+                {loading ? 'Buscando historia...' : (
+                  <span className="flex items-center justify-center gap-2">
+                    Consultar Pedido <ChevronRight className="w-4 h-4" />
+                  </span>
+                )}
               </button>
             </div>
             <p className="mt-10 text-center text-xs text-gray-400 leading-relaxed italic">
@@ -150,7 +159,7 @@ const OrderStatusPage: React.FC<OrderStatusPageProps> = ({ onBack }) => {
                   <div key={idx} className="flex gap-6 relative">
                     <div className={`w-8 h-8 rounded-full z-10 flex items-center justify-center transition-all ${step.done ? 'bg-success text-white' : step.current ? 'bg-primary ring-4 ring-primary/20 scale-110 shadow-lg' : 'bg-gray-100'
                       }`}>
-                      {step.done ? '✓' : ''}
+                      {step.done ? <Check className="w-4 h-4" /> : ''}
                     </div>
                     <div className="flex-grow pt-1">
                       <div className={`font-bold tracking-tight ${step.done || step.current ? 'text-primary' : 'text-gray-300'}`}>

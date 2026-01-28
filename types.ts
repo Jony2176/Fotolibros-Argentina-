@@ -42,7 +42,7 @@ export interface OrderDetails {
       cp: string;
     };
   };
-  metodoPago: 'mercadopago' | 'transferencia';
+  metodoPago: 'transferencia' | 'modo';
   comprobante?: File;
   estado: OrderStatus;
   total: number;

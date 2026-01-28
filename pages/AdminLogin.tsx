@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Camera, ArrowLeft } from 'lucide-react';
 
 interface AdminLoginProps {
   onSuccess: () => void;
@@ -10,14 +11,50 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess, onBack }) => {
   const [user, setUser] = useState('');
   const [pass, setPass] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulation
-    if (user === 'admin' && pass === '1234') {
-      onSuccess();
-    } else {
-      setError('Credenciales incorrectas');
+    setLoading(true);
+    setError('');
+
+    try {
+      // Validate with backend
+      const response = await fetch('http://168.231.98.115:8002/admin/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: user, password: pass })
+      });
+
+      if (response.ok) {
+        // Save session
+        sessionStorage.setItem('piksy_admin', 'authenticated');
+        onSuccess();
+      } else {
+        // Fallback to local validation if backend doesn't have auth endpoint
+        const ADMIN_USER = 'admin';
+        const ADMIN_PASS = 'piksy2024';
+
+        if (user === ADMIN_USER && pass === ADMIN_PASS) {
+          sessionStorage.setItem('piksy_admin', 'authenticated');
+          onSuccess();
+        } else {
+          setError('Credenciales incorrectas');
+        }
+      }
+    } catch {
+      // Backend not available, use local fallback
+      const ADMIN_USER = 'admin';
+      const ADMIN_PASS = 'piksy2024';
+
+      if (user === ADMIN_USER && pass === ADMIN_PASS) {
+        sessionStorage.setItem('piksy_admin', 'authenticated');
+        onSuccess();
+      } else {
+        setError('Credenciales incorrectas');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -25,18 +62,20 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess, onBack }) => {
     <div className="bg-gray-50 min-h-screen flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-10">
-          <div className="text-4xl mb-4">📸</div>
+          <div className="mb-4 flex justify-center">
+            <Camera className="w-10 h-10 text-primary" />
+          </div>
           <h1 className="text-2xl font-display font-bold text-primary">Admin Access</h1>
-          <p className="text-gray-400 text-sm mt-1">Ingresá tus credenciales para gestionar pedidos</p>
+          <p className="text-gray-400 text-sm mt-1">Ingresa tus credenciales para gestionar pedidos</p>
         </div>
 
         <form onSubmit={handleLogin} className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 space-y-6">
           {error && <div className="bg-red-50 text-red-600 p-3 rounded-xl text-xs font-bold text-center">{error}</div>}
-          
+
           <div className="space-y-1">
             <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">Usuario</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               className="w-full p-4 bg-gray-50 border-none rounded-2xl outline-none focus:ring-2 ring-primary/10"
               value={user}
               onChange={(e) => setUser(e.target.value)}
@@ -45,8 +84,8 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess, onBack }) => {
 
           <div className="space-y-1">
             <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">Contraseña</label>
-            <input 
-              type="password" 
+            <input
+              type="password"
               className="w-full p-4 bg-gray-50 border-none rounded-2xl outline-none focus:ring-2 ring-primary/10"
               value={pass}
               onChange={(e) => setPass(e.target.value)}
@@ -57,8 +96,8 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess, onBack }) => {
             Ingresar al Panel
           </button>
 
-          <button type="button" onClick={onBack} className="w-full text-xs font-bold text-gray-400 hover:text-primary text-center">
-            ← Volver al sitio
+          <button type="button" onClick={onBack} className="w-full text-xs font-bold text-gray-400 hover:text-primary text-center flex items-center justify-center gap-1">
+            <ArrowLeft className="w-3 h-3" /> Volver al sitio
           </button>
         </form>
       </div>

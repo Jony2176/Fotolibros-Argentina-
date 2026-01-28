@@ -1,5 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
+import { Camera, X, Send, MessageCircle } from 'lucide-react';
 import { PRODUCTS } from '../constants';
 
 const AIChat: React.FC = () => {
@@ -37,7 +38,7 @@ const AIChat: React.FC = () => {
         - Usa emojis con moderación
         - Si preguntan por productos, menciona solo los 2-3 más relevantes
         - Entrega: 10-14 días hábiles
-        - Pagos: MercadoPago y Transferencia
+        - Pagos: Transferencia (15% descuento) y MODO (pago QR)
         - Sé amigable pero conciso
       `;
 
@@ -81,13 +82,19 @@ const AIChat: React.FC = () => {
         <div className="bg-white w-[85vw] sm:w-[320px] h-[60vh] sm:h-[420px] rounded-2xl shadow-2xl flex flex-col border border-gray-100 overflow-hidden animate-fade-in mb-2">
           <header className="bg-primary p-4 text-white flex justify-between items-center shadow-md">
             <div className="flex items-center gap-2">
-              <span className="text-xl">📸</span>
+              <Camera className="w-5 h-5" />
               <div>
                 <h3 className="font-bold text-sm leading-none">Asistente Virtual</h3>
-                <span className="text-[10px] text-white/70">En línea ahora</span>
+                <span className="text-[10px] text-white/70">En linea ahora</span>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="bg-white/10 hover:bg-white/20 w-8 h-8 rounded-full flex items-center justify-center transition-colors">✕</button>
+            <button 
+              onClick={() => setIsOpen(false)} 
+              className="bg-white/10 hover:bg-white/20 w-8 h-8 rounded-full flex items-center justify-center transition-colors"
+              aria-label="Cerrar chat"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </header>
 
           <div ref={scrollRef} className="flex-grow p-4 overflow-y-auto space-y-4 bg-gray-50">
@@ -132,8 +139,9 @@ const AIChat: React.FC = () => {
         <button
           onClick={() => setIsOpen(true)}
           className="bg-primary text-white py-2 px-4 rounded-full shadow-lg hover:shadow-xl flex items-center gap-2 hover:-translate-y-1 transition-all active:scale-95 group border border-white/10"
+          aria-label="Abrir chat de ayuda"
         >
-          <span className="text-base group-hover:rotate-12 transition-transform">💬</span>
+          <MessageCircle className="w-4 h-4 group-hover:rotate-12 transition-transform" />
           <span className="font-bold text-xs">Ayuda</span>
         </button>
       )}

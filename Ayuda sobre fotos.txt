@@ -1,0 +1,110 @@
+Durabilidad de las impresiones
+Los materiales impresos con TIntas Electro Ink de HP Indigo, tienen una resistencia de al menos 54 años en exhibición interior (o sea, un producto abierto pero expuesto a luz artificial) sin demostrar ningún signo de reducción de desvanecimiento.
+
+Si fuera un producto que está guardado, la impresión recibió una calificación de durar no menos de 200 años, inclusive mayor a los 100 años de una impresión fotográfica clásica en material con Haluro de Plata.
+
+Este estudio se hizo en el Wilhelm Imaging Research (WIR institute).
+
+Resolución de las fotos
+¿Qué tamaño deben tener las fotos?
+A la mitad de la pantalla, en la parte inferior del área de diseño, verás que hay un número que te indica la cantidad de “dpi = puntos por pulgada o Dots Per Inch”.
+
+Si ese número baja de 200, la imagen seguramente no se va a ver perfectamente nítida. Es ideal que ese número, refleje algo mayor a 200 dpi. De esta forma, ayudarás a que las imágenes se vean bien y sin el molesto serrucho característico.
+
+Igualmente, una cuenta fácil es saber la cantidad de pixels que tiene la foto y dividirlo por 250. Por ejemplo, una foto de 3888 x 2592 pixels, debería imprimirse como máximo a un tamaño de 3888 / 250 = 15.5 pulgadas de ancho por 2592/250 = 10.3 pulgadas de alto. O sea, unos 40 x 26 cm. 
+
+Toda imágen que esté por debajo de los 100 dpi, corre serio riesgo de verse pixelada.
+
+ 
+
+¿Cómo se si las fotos que uso están en una resolución aceptable?
+El módulo para diseñar fotolibros posee abajo y al medio de la pantalla, un indicador que nos guiará respecto de la resolución a la que queda una foto. El ideal es que las fotos no bajen de los 200 dpi. Pero el sistema enciende una luz amarilla cuando se baja de de 120 dpi. Te avisa que estás por debajo de lo que puede esperarse para una fotografía. Lo importante es que te va a advertir, pero nunca te frenará el trabajo.
+
+
+Resoluciones recomendadas
+Fábrica de Fotolibros sugiere como mínimo las siguientes dimensiones de imagen para determinados tamaños de impresión.
+
+Dimensiones de la imagen original	 	Tamaño de impresión recomendado
+640 x 480 pixeles	 	6,5 x 5 cm. *
+1024 x 768 pixeles	 	10 x 8 cm.
+1152 x 864 pixeles	 	11 x 9 cm.
+1600 x 1200 pixeles	 	16 x 12 cm.
+2000 x 1600 pixeles	 	20 x 16 cm.
+3888 x 2592 pixeles	 	40 x 26 cm.
+
+* Si bien es posible obtener buena calidad 6,5 x 5 cm. con una resolución de con 640 x 480 px., los resultados varían bastante. Utilizá fotos con esta resolución con precaución.
+
+Estas medidas recomendadas se basan en las dimensiones de la imagen original, sin recortar. Recortar una imagen reduce sus dimensiones y la calidad de impresión en un mismo tamaño de impresión. Después de recortar la imagen, utilizá las dimensiones de la superficie final de la imagen, no la imagen original, al buscar el tamaño recomendado de impresión.
+
+Te recomendamos que utilices imágenes de alta resolución para obtener los mejores resultados. Imágenes sin recortar de 3 megapíxeles o más. En la mayoría de los casos, cuanto mayor sea la imagen original, mejor será la calidad de impresión.
+
+Fotos de Facebook/Whatsapp/Instagram: tené en cuenta que las imágenes de redes sociales, están reducidas a un tamaño más pequeño que el archivo original y pueden no tener suficiente resolución para ser impresas en grandes tamaños. Además, muchas veces generan problemas para la impresión
+
+Cantidad de fotos por página
+¿Cuántas fotos puedo poner por página?
+Nuestro editor para diseñar fotolibros no tiene limitaciones en cuanto a la cantidad de fotos que podés poner por página. Y el precio no varía en función de la cantidad de fotos. 
+
+El precio de los fotolibros varía en función del tamaño, tipo de encuadernación y cantidad de páginas que elijas, independientemente de la cantidad de fotos.
+
+Los fotolibros pueden contener desde 20 a 80 páginas. 
+
+Formatos de archivo aceptados
+¿Qué formatos de archivo acepta el editor de Fábrica de Fotolibros? ¿Puedo utilizar archivos TIFF, BMP, GIF, PSD y otros formatos?
+El editor de Fábrica de Fotolibros actualmente acepta formatos jpg (RGB) y png. No acepta archivos psd, ai u otro que no sean los mencionados anteriormente.
+
+Además, te recomendamos que utilices imágenes de alta resolución, dado que las imágenes de baja resolución no se imprimen bien en tamaños estándar. 
+
+Si estás utilizando un editor de imágenes como Adobe Photoshop (o cualquier programa de edición de imágenes) para ajustar tus imágenes, por favor asegurate de lo siguiente: 
+
+1. Que las imágenes estén en RGB (no CMYK).
+
+2. Por favor utilizá la menor compresión posible para obtener mejores resultados.
+
+Ajustes de la cámara
+En mi cámara digital, ¿puedo tomar fotografías usando cualquier ajuste de resolución?
+Muchas cámaras digitales, especialmente las que son clasificados en 2 + megapíxeles, te permiten elegir entre una variedad de resoluciones de imagen.
+
+Fábrica de Fotolibros recomienda utilizar siempre la más alta resolución disponible en tu cámara digital si vas a imprimir tus fotografías.
+
+Del mismo modo, muchas cámaras digitales también permiten elegir la cantidad de compresión JPEG. Los niveles de compresión son frecuentemente mencionados como Normal o Basic, Fine y Superfine.
+
+Si la cámara tiene 2 megapíxeles +, FabricaDeFotolibros.Com recomienda Fine o Superfine, cualquiera de las dos (con el ajuste Fine se reducirá el tamaño del archivo a expensas de la calidad de imagen, ligeramente reducida).
+
+Si la cámara digital tiene menos de 2 Megapixeles, te recomendamos la configuración con la menor cantidad de compresión (Superfine). La configuración específica para la resolución de la cámara digital y el nivel de compresión JPEG se pueden encontrar en el manual de usuario para la cámara digital.
+
+Para impresiones de gran formato (30x35, 40x50, 50x76 cm.), puede contribuir a garantizar la mejor impresión posible mediante el uso de una imagen que sea de 3 megapíxeles o más.
+
+Mis fotos no son digitales...
+Yo tengo fotos viejas impresas que me gustaría incluir en un fotolibro ¿cómo hago?
+Podés incluir fotos "no digitales" en tu fotolibro, así como podes incluír un ticket de avión, una entrada a un museo o el ticket del recital que viste durante un viaje.
+
+Escaneá tus fotos o material impreso a 300 dpi o más y guardarlas como archivos jpg o jpeg, manteniendo como mínimo un 80% de calidad. Una vez que las tengas escaneadas podrás incluirlas en tu fotolibro con el software de Fábrica de Fotolibros Si la foto es pequeña y vas a intentar imprimirla mas grande que el tamaño original, tene en cuenta incrementar la resolución ya que eso ayudará a que salga perfectamente reproducido.
+
+Fábrica de Fotolibros no ofrece el servicio de escaneado de fotografías o negativos.
+
+Tips para escanear fotografías
+La fotografía original a escanear debe ser lo más grande posible. Escanear fotografías pequeñas, como las de billetera, pueden no producir resultados satisfactorios.
+
+Para obtener resultados óptimos al momento de imprimir, tendrás que especificarle al scanner a que tamaño queres el archivo y a que resolución. Recomendamos que le pidas que te las escanee al tamaño original, pero por lo menos a algo entre 400 y 500 dpi. Así, si las vas a apliar o ampliar, podrás tener una mejor calidad de reproducción.
+
+Si el escaner viene con funciones de eliminación de polvo o mejora automática de colores, hace pruebas para ver cual de los seteos es el que genera el mejor resultado.
+
+Asegúrate de revisar el resultado de tu escaneo (archivo de la imagen escaneada) a tamaño normal (100% de zoom) para notar realmente el resultado. Así podrás ver los defectos tales como polvo, arañazos, etc que estén en el original. Estas fallas serán difíciles de ver en menores tamaños (miniaturas por ejemplo).
+
+Cómo organizar las fotos para realizar un fotolibro fácilmente
+La era digital nos permite que saquemos cientos de fotos. Pero la cantidad nos complican el tenerlas ordenadas y clasificadas.
+
+Por este motivo, recomendamos seleccionar previamente las fotos en un directorio que podamos encontrar fácilmente.
+
+Nuestra herramienta preferida es Picasa. Este programa nos permite ir seleccionando las fotos e ir armando álbumes virtuales de fotos. Una vez elegidas todas las fotos y armado el álbum, lo exportamos a una carpeta específica indicándole que mantenga el tamaño original del archivo.
+
+Así, estaremos listos para que cuando iniciemos la aplicación de fotobooks o calendarios, tengamos todo muy a la mano y en un solo directorio.
+
+Consejos para la correcta ubicación de las fotos de doble página
+Incluir fotos a doble página en nuestro fotolibro, es un buen recurso para lograr impacto y que nuestras fotos se vean super grandes. Pero atención! Debemos ubicarlas de forma tal que el sujeto principal no quede justo en medio, en la zona de encuadernación.
+
+En este artículo te explicamos 4 temas súper importantes que debés tener en cuenta a la hora de diseñar tus fotlibros y uno de ellos es sobre la correcta ubicación de las fotos a doble página. Te sugerimos leerlo y lo podés hacer acá: https://www.fabricadefotolibros.com/contenidos/ayuda/ayuda-con-el-diseno-en-el-editor-online/4-consejos-super-importantes-para-disenar-tus-fotolibros.html
+
+ 
+
+ 
